@@ -58,9 +58,9 @@ return Scaffold(
 );
 ```
 
-Check the image to see the result of this on a desktop application
+Check the image to see the result of this on a desktop application:
 
-![image info](img/desktop_example.png)
+(<a href="https://ibb.co/X7dPyyJ"><img src="https://i.ibb.co/qN48001/desktop-example.png" alt="desktop-example" border="0"></a>)
 
 
 ## Future Updates
