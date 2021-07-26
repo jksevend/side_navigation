@@ -5,7 +5,7 @@ This package provides support to navigate on your app. It was inspired from both
 First add the dependency into your ```pubspec.yaml```:
 ```
 dependencies:
-    side_navigation: ^0.0.1
+    side_navigation: ^0.0.2
 ```
 
 **OR**
@@ -58,9 +58,23 @@ return Scaffold(
 );
 ```
 
-Check the image to see the result of this on a desktop application:
+**Desktop:**
+
+Personally on Desktop I like it more without the ```AppBar```
 
 <a href="https://ibb.co/X7dPyyJ"><img src="https://i.ibb.co/qN48001/desktop-example.png" alt="desktop-example" border="0"></a>
+
+**Android Tablet:**
+
+On the tablet on the other hand an AppBar blends right in!
+
+<a href="https://ibb.co/nQFZcQx"><img src="https://i.ibb.co/vLSgPL0/tablet-example.png" alt="tablet-example" border="0"></a>
+
+**Android Phone:**
+
+For phones I would recommend only using this type of navigation when the device is in ```landscape``` mode. Since the content is displayed very small when in ```portrait```
+
+<a href="https://ibb.co/QbLshyK"><img src="https://i.ibb.co/p0cCNYL/phone-example.png" alt="phone-example" border="0"></a>
 
 
 ## Future Updates
