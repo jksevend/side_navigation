@@ -11,7 +11,7 @@ This package provides support to navigate on your app. It was inspired from both
 First add the dependency into your ```pubspec.yaml```:
 ```
 dependencies:
-    side_navigation: ^0.0.2
+    side_navigation: ^0.0.3
 ```
 
 **OR**
