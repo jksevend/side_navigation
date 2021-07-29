@@ -1,6 +1,12 @@
 # Flutter Side Navigation
+
 This package provides support to navigate on your app. It was inspired from both the ```BottomNavigationBar``` and ```Drawer```. You can think of it as an Drawer which is always open but on the right side of the screen. Kind of like a CEO dashboard web application.
 
+
+> **NOTE**: If you are looking for a Flutter implementation of this navigation approach check out `NavigationRail` which I recently stumbled upon after publishing this package.  
+## Preview 
+
+![Alt Text](https://media.giphy.com/media/YP458pCN80KKe5iWSI/giphy.gif)
 ## Getting started
 First add the dependency into your ```pubspec.yaml```:
 ```
@@ -40,8 +46,8 @@ return Scaffold(
                         label: 'Account',
                     ),
                     SideNavigationBarItem(
-                    icon: Icons.settings,
-                    label: 'Settings',
+                        icon: Icons.settings,
+                        label: 'Settings',
                     ),
                 ],
                 onTap: (index) {

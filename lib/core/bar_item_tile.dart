@@ -25,13 +25,15 @@ class SideNavigationBarItemTile extends StatefulWidget {
   final int index;
 
   final Color color;
+  final bool expanded;
   const SideNavigationBarItemTile(
       {Key? key,
       required this.icon,
       required this.label,
       required this.onTap,
       required this.index,
-      required this.color})
+      required this.color,
+      required this.expanded})
       : super(key: key);
 
   @override
@@ -52,21 +54,31 @@ class _SideNavigationBarItemTileState extends State<SideNavigationBarItemTile> {
     final bool isSelected = isTileSelected(barItems, selectedIndex);
 
     /// Return a basic listtile for now
-    return ListTile(
-      leading: Icon(
-        widget.icon,
-        color: getTileColor(isSelected),
-      ),
-      title: Text(
-        widget.label,
-        style: TextStyle(
-          color: getTileColor(isSelected),
-        ),
-      ),
-      onTap: () {
-        widget.onTap(widget.index);
-      },
-    );
+    return widget.expanded
+        ? ListTile(
+            leading: Icon(
+              widget.icon,
+              color: getTileColor(isSelected),
+            ),
+            title: Text(
+              widget.label,
+              style: TextStyle(
+                color: getTileColor(isSelected),
+              ),
+            ),
+            onTap: () {
+              widget.onTap(widget.index);
+            },
+          )
+        : IconButton(
+            icon: Icon(
+              widget.icon,
+              color: getTileColor(isSelected),
+            ),
+            onPressed: () {
+              widget.onTap(widget.index);
+            },
+          );
   }
 
   /// Determines if this tile is currently selected

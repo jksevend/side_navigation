@@ -38,6 +38,7 @@ void main() {
     );
 
     await widgetTester.pumpWidget(app);
+    expect(find.byType(SideNavigationBar), findsOneWidget);
     expect(find.byIcon(Icons.dashboard), findsOneWidget);
     expect(
         (widgetTester.firstWidget(find.byIcon(Icons.dashboard)) as Icon).color,
@@ -79,6 +80,7 @@ void main() {
     );
 
     await widgetTester.pumpWidget(app);
+    expect(find.byType(SideNavigationBar), findsOneWidget);
     expect(find.byIcon(Icons.dashboard), findsOneWidget);
     expect(
         (widgetTester.firstWidget(find.byIcon(Icons.dashboard)) as Icon).color,
@@ -130,5 +132,50 @@ void main() {
 
     await widgetTester.pump();
     expect(find.widgetWithText(Center, 'Dashboard view'), findsOneWidget);
+  });
+
+  testWidgets('Collapsing the bar changes its width.', (widgetTester) async {
+    // Define initial index and views
+    int selectedIndex = 0;
+    List<Widget> views = const [
+      Expanded(
+        child: Center(
+          child: Text('Dashboard view'),
+        ),
+      ),
+      Expanded(
+        child: Center(
+          child: Text('Account view'),
+        ),
+      )
+    ];
+    // Given bar
+    SideNavigationBar sideNavigationBar = SideNavigationBar(
+        selectedIndex: selectedIndex,
+        items: const [
+          SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard'),
+          SideNavigationBarItem(icon: Icons.person, label: 'Account')
+        ],
+        onTap: (index) {
+          selectedIndex = index;
+        });
+
+    // App context
+    MaterialApp app = MaterialApp(
+      home: Scaffold(
+        body: Row(
+          children: [sideNavigationBar, views.elementAt(selectedIndex)],
+        ),
+      ),
+    );
+
+    await widgetTester.pumpWidget(app);
+    // Collapse the bar
+    await widgetTester.tap(find.byIcon(Icons.arrow_left));
+    await widgetTester.pump();
+    await widgetTester.binding.delayed(const Duration(milliseconds: 350));
+    await widgetTester.pump();
+    // Width is always one higher
+    expect(widgetTester.getSize(find.byType(Container).first).width, 51);
   });
 }

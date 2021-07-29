@@ -23,12 +23,22 @@ class SideNavigationBar extends StatefulWidget {
   /// The [Color] of an selected item. If nothing or null is passed it defaults to
   /// Colors.blue[200]
   final Color? selectedItemColor;
+
+  /// Specifies wheter that [SideNavigationBar] is expanded or not. Default is true
+  final bool expandable;
+
+  /// The [IconData] to use when building the button to toggle [expanded]
+  final IconData expandIcon;
+  final IconData shrinkIcon;
   const SideNavigationBar(
       {Key? key,
       required this.selectedIndex,
       required this.items,
       required this.onTap,
-      this.selectedItemColor})
+      this.selectedItemColor,
+      this.expandable = true,
+      this.expandIcon = Icons.arrow_right,
+      this.shrinkIcon = Icons.arrow_left})
       : super(key: key);
 
   @override
@@ -38,8 +48,20 @@ class SideNavigationBar extends StatefulWidget {
       context.findAncestorStateOfType<_SideNavigationBarState>()!;
 }
 
-class _SideNavigationBarState extends State<SideNavigationBar> {
-  final double width = 225;
+class _SideNavigationBarState extends State<SideNavigationBar>
+    with SingleTickerProviderStateMixin {
+  final double minWidth = 50;
+  final double maxWidth = 200;
+  late double width;
+
+  bool expanded = true;
+
+  @override
+  void initState() {
+    super.initState();
+    width = maxWidth;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,27 +75,70 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
           ),
         ),
       ),
-      child: SizedBox(
-        width: width,
-        height: double.infinity,
-        child: ListView(
-          children: _generateItems(),
-        ),
+      child: AnimatedSize(
+        curve: Curves.easeIn,
+        duration: const Duration(milliseconds: 350),
+        vsync: this,
+        child: SizedBox(
+            width: width,
+            height: double.infinity,
+            child: Column(
+              children: [
+                // Header
+                // TODO: implement header
+                // Navigation content
+                Expanded(
+                  child: Scrollbar(
+                    child: ListView(
+                      children: _generateItems(expanded),
+                    ),
+                  ),
+                ),
+                // Toggler widget (Footer)
+                widget.expandable
+                    ? Align(
+                        alignment: Alignment.bottomCenter,
+                        child: IconButton(
+                          icon: Icon(
+                              expanded ? widget.shrinkIcon : widget.expandIcon),
+                          onPressed: () {
+                            setState(() {
+                              if (expanded) {
+                                width = minWidth;
+                              } else {
+                                width = maxWidth;
+                              }
+                              expanded = !expanded;
+                            });
+                          },
+                        ),
+                      )
+                    : Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(),
+                      ),
+              ],
+            )),
       ),
     );
   }
 
   /// Takes [SideNavigationBarItem] data and builds new widgets with it.
-  List<SideNavigationBarItemTile> _generateItems() {
-    return widget.items.asMap().entries.map<SideNavigationBarItemTile>(
-        (MapEntry<int, SideNavigationBarItem> entry) {
+  List<Widget> _generateItems(final bool _expanded) {
+    List<Widget> _items = widget.items
+        .asMap()
+        .entries
+        .map<SideNavigationBarItemTile>(
+            (MapEntry<int, SideNavigationBarItem> entry) {
       return SideNavigationBarItemTile(
           icon: entry.value.icon,
           label: entry.value.label,
           onTap: widget.onTap,
           index: entry.key,
+          expanded: expanded,
           color: _validateSelectedItemColor());
     }).toList();
+    return _items;
   }
 
   /// Checks what was passed as [widget.selectedItemColor]
