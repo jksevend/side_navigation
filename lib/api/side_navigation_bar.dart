@@ -20,6 +20,10 @@ class SideNavigationBar extends StatefulWidget {
   /// What to do when an item as been tapped
   final ValueChanged<int> onTap;
 
+  /// The [Color] of an selected item. If nothing or null is passed it defaults to the
+  /// color of the parent container
+  final Color? color;
+
   /// The [Color] of an selected item. If nothing or null is passed it defaults to
   /// Colors.blue[200]
   final Color? selectedItemColor;
@@ -35,6 +39,7 @@ class SideNavigationBar extends StatefulWidget {
       required this.selectedIndex,
       required this.items,
       required this.onTap,
+      this.color,
       this.selectedItemColor,
       this.expandable = true,
       this.expandIcon = Icons.arrow_right,
@@ -48,8 +53,7 @@ class SideNavigationBar extends StatefulWidget {
       context.findAncestorStateOfType<_SideNavigationBarState>()!;
 }
 
-class _SideNavigationBarState extends State<SideNavigationBar>
-    with SingleTickerProviderStateMixin {
+class _SideNavigationBarState extends State<SideNavigationBar> with SingleTickerProviderStateMixin {
   final double minWidth = 50;
   final double maxWidth = 200;
   late double width;
@@ -66,6 +70,7 @@ class _SideNavigationBarState extends State<SideNavigationBar>
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        color: widget.color,
         border: Border(
           right: BorderSide(
             width: 1,
@@ -99,8 +104,7 @@ class _SideNavigationBarState extends State<SideNavigationBar>
                     ? Align(
                         alignment: Alignment.bottomCenter,
                         child: IconButton(
-                          icon: Icon(
-                              expanded ? widget.shrinkIcon : widget.expandIcon),
+                          icon: Icon(expanded ? widget.shrinkIcon : widget.expandIcon),
                           onPressed: () {
                             setState(() {
                               if (expanded) {
@@ -128,8 +132,7 @@ class _SideNavigationBarState extends State<SideNavigationBar>
     List<Widget> _items = widget.items
         .asMap()
         .entries
-        .map<SideNavigationBarItemTile>(
-            (MapEntry<int, SideNavigationBarItem> entry) {
+        .map<SideNavigationBarItemTile>((MapEntry<int, SideNavigationBarItem> entry) {
       return SideNavigationBarItemTile(
           icon: entry.value.icon,
           label: entry.value.label,
