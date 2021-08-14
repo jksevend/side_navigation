@@ -11,7 +11,7 @@ This package provides support to navigate on your app. It was inspired from both
 First add the dependency into your ```pubspec.yaml```:
 ```
 dependencies:
-    side_navigation: ^0.0.3
+    side_navigation: ^0.0.4
 ```
 
 **OR**
@@ -85,7 +85,7 @@ For phones I would recommend only using this type of navigation when the device 
 
 ## Future Updates
 Currently the plan is to add support for
-* Making the ```SideNavigationBar``` expandable
+
 * Adding a header component when building the bar
 * Adding more style customizations
 * Maybe choose the position of the bar. Either right or left?

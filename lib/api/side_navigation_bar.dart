@@ -20,11 +20,11 @@ class SideNavigationBar extends StatefulWidget {
   /// What to do when an item as been tapped
   final ValueChanged<int> onTap;
 
-  /// The [Color] of an selected item. If nothing or null is passed it defaults to the
+  /// The background [Color] of the [SideNavigationBar]. If nothing or null is passed it defaults to the
   /// color of the parent container
   final Color? color;
 
-  /// The [Color] of an selected item. If nothing or null is passed it defaults to
+  /// The [Color] of an selected [SideNavigationBarItem]. If nothing or null is passed it defaults to
   /// Colors.blue[200]
   final Color? selectedItemColor;
 
@@ -53,7 +53,8 @@ class SideNavigationBar extends StatefulWidget {
       context.findAncestorStateOfType<_SideNavigationBarState>()!;
 }
 
-class _SideNavigationBarState extends State<SideNavigationBar> with SingleTickerProviderStateMixin {
+class _SideNavigationBarState extends State<SideNavigationBar>
+    with SingleTickerProviderStateMixin {
   final double minWidth = 50;
   final double maxWidth = 200;
   late double width;
@@ -104,7 +105,8 @@ class _SideNavigationBarState extends State<SideNavigationBar> with SingleTicker
                     ? Align(
                         alignment: Alignment.bottomCenter,
                         child: IconButton(
-                          icon: Icon(expanded ? widget.shrinkIcon : widget.expandIcon),
+                          icon: Icon(
+                              expanded ? widget.shrinkIcon : widget.expandIcon),
                           onPressed: () {
                             setState(() {
                               if (expanded) {
@@ -132,7 +134,8 @@ class _SideNavigationBarState extends State<SideNavigationBar> with SingleTicker
     List<Widget> _items = widget.items
         .asMap()
         .entries
-        .map<SideNavigationBarItemTile>((MapEntry<int, SideNavigationBarItem> entry) {
+        .map<SideNavigationBarItemTile>(
+            (MapEntry<int, SideNavigationBarItem> entry) {
       return SideNavigationBarItemTile(
           icon: entry.value.icon,
           label: entry.value.label,

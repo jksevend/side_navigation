@@ -10,3 +10,6 @@
 * New functionality: 
     - The bar animate its width once it was expanded or shrinked
 * Testing of functionality
+
+## 0.0.4
+* You can now choose the background color of the `SideNavigationBar`
