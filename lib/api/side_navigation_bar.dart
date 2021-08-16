@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:side_navigation/api/side_navigation_bar_header.dart';
 import 'package:side_navigation/core/bar_item_tile.dart';
 
 import 'side_navigation_bar_item.dart';
@@ -34,17 +35,22 @@ class SideNavigationBar extends StatefulWidget {
   /// The [IconData] to use when building the button to toggle [expanded]
   final IconData expandIcon;
   final IconData shrinkIcon;
-  const SideNavigationBar(
-      {Key? key,
-      required this.selectedIndex,
-      required this.items,
-      required this.onTap,
-      this.color,
-      this.selectedItemColor,
-      this.expandable = true,
-      this.expandIcon = Icons.arrow_right,
-      this.shrinkIcon = Icons.arrow_left})
-      : super(key: key);
+
+  /// Optional header for top of menu bar
+  final SideNavigationBarHeader? header;
+
+  const SideNavigationBar({
+    Key? key,
+    required this.selectedIndex,
+    required this.items,
+    required this.onTap,
+    this.color,
+    this.selectedItemColor,
+    this.expandable = true,
+    this.expandIcon = Icons.arrow_right,
+    this.shrinkIcon = Icons.arrow_left,
+    this.header,
+  }) : super(key: key);
 
   @override
   _SideNavigationBarState createState() => _SideNavigationBarState();
@@ -90,7 +96,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> with SingleTicker
             child: Column(
               children: [
                 // Header
-                // TODO: implement header
+                if (widget.header != null) widget.header!.generateWidget(context, expanded, width),
                 // Navigation content
                 Expanded(
                   child: Scrollbar(

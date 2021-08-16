@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:side_navigation/api/side_navigation_bar_header.dart';
 import 'package:side_navigation/side_navigation.dart';
 
 void main() {
@@ -45,9 +46,13 @@ class _MainViewState extends State<MainView> {
       // The row is needed to display the current view
       body: Row(
         children: [
-          /// Pretty similar to the BottomNavigationBar!
           SideNavigationBar(
             selectedIndex: selectedIndex,
+            header: const SideNavigationBarHeader(
+              expandedAsset: "example/logo_expanded.png",
+              collapsedAsset: "example/logo_collapsed.png",
+              height: 100,
+            ),
             items: const [
               SideNavigationBarItem(
                 icon: Icons.dashboard,
