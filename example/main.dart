@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:side_navigation/api/side_navigation_bar_header.dart';
 import 'package:side_navigation/side_navigation.dart';
 
 void main() {
@@ -47,6 +48,10 @@ class _MainViewState extends State<MainView> {
         children: [
           /// Pretty similar to the BottomNavigationBar!
           SideNavigationBar(
+            header: const SideNavigationBarHeader(
+              leading: Icon(Icons.person),
+              title: Text('Max Mustermann'),
+            ),
             selectedIndex: selectedIndex,
             items: const [
               SideNavigationBarItem(

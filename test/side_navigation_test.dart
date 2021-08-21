@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:side_navigation/api/side_navigation_bar.dart';
+import 'package:side_navigation/api/side_navigation_bar_header.dart';
 
 import 'package:side_navigation/side_navigation.dart';
 
 void main() {
   testWidgets(
-      'SideNavigationBar displays its items correctly. No extra color passed, using default one',
+      'SideNavigationBar displays its items correctly. No extra item color passed, using default one',
       (widgetTester) async {
     // Define initial index and views
     int selectedIndex = 0;
@@ -20,6 +21,10 @@ void main() {
     ];
     // Given bar
     SideNavigationBar sideNavigationBar = SideNavigationBar(
+        header: const SideNavigationBarHeader(
+          leading: Icon(Icons.person),
+          title: Text('Max Mustermann'),
+        ),
         selectedIndex: selectedIndex,
         items: const [
           SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard')
@@ -43,11 +48,11 @@ void main() {
     expect(
         (widgetTester.firstWidget(find.byIcon(Icons.dashboard)) as Icon).color,
         Colors.blue[200]);
-    expect(find.byType(ListTile), findsOneWidget);
+    expect(find.byType(ListTile), findsWidgets);
   });
 
   testWidgets(
-      'SideNavigationBar displays its items correctly. Extra color passed.',
+      'SideNavigationBar displays its items correctly. Extra item color passed.',
       (widgetTester) async {
     // Define initial index and views
     int selectedIndex = 0;
@@ -60,6 +65,10 @@ void main() {
     ];
     // Given bar
     SideNavigationBar sideNavigationBar = SideNavigationBar(
+      header: const SideNavigationBarHeader(
+        leading: Icon(Icons.person),
+        title: Text('Max Mustermann'),
+      ),
       selectedIndex: selectedIndex,
       items: const [
         SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard')
@@ -85,7 +94,7 @@ void main() {
     expect(
         (widgetTester.firstWidget(find.byIcon(Icons.dashboard)) as Icon).color,
         Colors.pink);
-    expect(find.byType(ListTile), findsOneWidget);
+    expect(find.byType(ListTile), findsWidgets);
   });
 
   testWidgets(
@@ -107,6 +116,10 @@ void main() {
     ];
     // Given bar
     SideNavigationBar sideNavigationBar = SideNavigationBar(
+        header: const SideNavigationBarHeader(
+          leading: Icon(Icons.person),
+          title: Text('Max Mustermann'),
+        ),
         selectedIndex: selectedIndex,
         items: const [
           SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard'),
@@ -151,6 +164,10 @@ void main() {
     ];
     // Given bar
     SideNavigationBar sideNavigationBar = SideNavigationBar(
+        header: const SideNavigationBarHeader(
+          leading: Icon(Icons.person),
+          title: Text('Max Mustermann'),
+        ),
         selectedIndex: selectedIndex,
         items: const [
           SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard'),

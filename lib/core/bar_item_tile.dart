@@ -25,7 +25,7 @@ class SideNavigationBarItemTile extends StatefulWidget {
   final int index;
 
   final Color color;
-  final bool expanded;
+  final bool collapsed;
   const SideNavigationBarItemTile(
       {Key? key,
       required this.icon,
@@ -33,7 +33,7 @@ class SideNavigationBarItemTile extends StatefulWidget {
       required this.onTap,
       required this.index,
       required this.color,
-      required this.expanded})
+      required this.collapsed})
       : super(key: key);
 
   @override
@@ -51,31 +51,31 @@ class _SideNavigationBarItemTileState extends State<SideNavigationBarItemTile> {
     final int selectedIndex =
         SideNavigationBar.of(context).widget.selectedIndex;
     // Check if this tile is selected
-    final bool isSelected = isTileSelected(barItems, selectedIndex);
+    final bool isSelected = _isTileSelected(barItems, selectedIndex);
 
     /// Return a basic listtile for now
-    return widget.expanded
-        ? ListTile(
+    return widget.collapsed
+        ? IconButton(
+            icon: Icon(
+              widget.icon,
+              color: _getTileColor(isSelected),
+            ),
+            onPressed: () {
+              widget.onTap(widget.index);
+            },
+          )
+        : ListTile(
             leading: Icon(
               widget.icon,
-              color: getTileColor(isSelected),
+              color: _getTileColor(isSelected),
             ),
             title: Text(
               widget.label,
               style: TextStyle(
-                color: getTileColor(isSelected),
+                color: _getTileColor(isSelected),
               ),
             ),
             onTap: () {
-              widget.onTap(widget.index);
-            },
-          )
-        : IconButton(
-            icon: Icon(
-              widget.icon,
-              color: getTileColor(isSelected),
-            ),
-            onPressed: () {
               widget.onTap(widget.index);
             },
           );
@@ -85,7 +85,7 @@ class _SideNavigationBarItemTileState extends State<SideNavigationBarItemTile> {
   ///
   /// Looks at the both item labels to compare wheter they are equal
   /// and compares the parents [index] with this tiles index
-  bool isTileSelected(
+  bool _isTileSelected(
       final List<SideNavigationBarItem> items, final int index) {
     for (final SideNavigationBarItem item in items) {
       if (item.label == widget.label && index == widget.index) {
@@ -98,7 +98,7 @@ class _SideNavigationBarItemTileState extends State<SideNavigationBarItemTile> {
   /// Check if this item [isSelected] and return the passed [widget.color]
   /// If it is not selected return either [Colors.white] or [Colors.grey] based on the
   /// [Brightness]
-  Color getTileColor(final bool isSelected) {
+  Color _getTileColor(final bool isSelected) {
     return isSelected
         ? widget.color
         : (Theme.of(context).brightness == Brightness.dark

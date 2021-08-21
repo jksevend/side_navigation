@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:side_navigation/core/bar_item_tile.dart';
 
+import 'side_navigation_bar_header.dart';
 import 'side_navigation_bar_item.dart';
 
 /// Takes the data from [items] and builds [SideNavigationBarItemTile] with it.
@@ -20,6 +21,9 @@ class SideNavigationBar extends StatefulWidget {
   /// What to do when an item as been tapped
   final ValueChanged<int> onTap;
 
+  /// A simple header widget
+  final SideNavigationBarHeader header;
+
   /// The background [Color] of the [SideNavigationBar]. If nothing or null is passed it defaults to the
   /// color of the parent container
   final Color? color;
@@ -28,22 +32,18 @@ class SideNavigationBar extends StatefulWidget {
   /// Colors.blue[200]
   final Color? selectedItemColor;
 
-  /// Specifies wheter that [SideNavigationBar] is expanded or not. Default is true
-  final bool expandable;
+  /// Specifies wheter that [SideNavigationBar] is collapsable or not. Default is true
+  final bool collapsable;
 
-  /// The [IconData] to use when building the button to toggle [expanded]
-  final IconData expandIcon;
-  final IconData shrinkIcon;
   const SideNavigationBar(
       {Key? key,
       required this.selectedIndex,
       required this.items,
       required this.onTap,
+      required this.header,
       this.color,
       this.selectedItemColor,
-      this.expandable = true,
-      this.expandIcon = Icons.arrow_right,
-      this.shrinkIcon = Icons.arrow_left})
+      this.collapsable = true})
       : super(key: key);
 
   @override
@@ -59,7 +59,7 @@ class _SideNavigationBarState extends State<SideNavigationBar>
   final double maxWidth = 200;
   late double width;
 
-  bool expanded = true;
+  bool collapsed = false;
 
   @override
   void initState() {
@@ -91,30 +91,36 @@ class _SideNavigationBarState extends State<SideNavigationBar>
             child: Column(
               children: [
                 // Header
-                // TODO: implement header
+                collapsed
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: widget.header.leading,
+                      )
+                    : widget.header,
+                const Divider(),
                 // Navigation content
                 Expanded(
                   child: Scrollbar(
                     child: ListView(
-                      children: _generateItems(expanded),
+                      children: _generateItems(collapsed),
                     ),
                   ),
                 ),
                 // Toggler widget (Footer)
-                widget.expandable
+                widget.collapsable
                     ? Align(
                         alignment: Alignment.bottomCenter,
                         child: IconButton(
                           icon: Icon(
-                              expanded ? widget.shrinkIcon : widget.expandIcon),
+                              collapsed ? Icons.arrow_right : Icons.arrow_left),
                           onPressed: () {
                             setState(() {
-                              if (expanded) {
-                                width = minWidth;
-                              } else {
+                              if (collapsed) {
                                 width = maxWidth;
+                              } else {
+                                width = minWidth;
                               }
-                              expanded = !expanded;
+                              collapsed = !collapsed;
                             });
                           },
                         ),
@@ -141,7 +147,7 @@ class _SideNavigationBarState extends State<SideNavigationBar>
           label: entry.value.label,
           onTap: widget.onTap,
           index: entry.key,
-          expanded: expanded,
+          collapsed: collapsed,
           color: _validateSelectedItemColor());
     }).toList();
     return _items;
