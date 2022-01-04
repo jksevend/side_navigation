@@ -17,3 +17,6 @@
 ## 0.0.5
 * ``SideNavigationBarHeader`` and ``SideNavigationBarFooter`` is now available
 * You can now specify whether ``SideNavigationBar`` should be ``initiallyExpanded`` or not
+
+## 0.0.6
+* Resolved ``flutter format`` issues

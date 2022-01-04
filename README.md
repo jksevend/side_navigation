@@ -1,6 +1,6 @@
 # Flutter Side Navigation
 
-This package provides support to navigate on your app. It was inspired from both the ```BottomNavigationBar``` and ```Drawer```. You can think of it as a drawer which is always open but on the right side of the screen. Kind of like a CEO dashboard web application.
+This package provides support to navigate on your app. It was inspired from both the ```BottomNavigationBar``` and ```Drawer```. You can think of it as a drawer which is always open. Kind of like a CEO dashboard web application.
 
 
 > **NOTE**: If you are looking for a Flutter implementation of this navigation approach check out `NavigationRail` which I recently stumbled upon after publishing this package.  
@@ -10,7 +10,7 @@ This package provides support to navigate on your app. It was inspired from both
 First add the dependency into your ```pubspec.yaml```:
 ```
 dependencies:
-    side_navigation: ^0.0.5
+    side_navigation: ^0.0.6
 ```
 
 **OR**
