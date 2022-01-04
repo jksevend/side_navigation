@@ -22,10 +22,12 @@ class SideNavigationBarHeaderWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SideNavigationBarHeaderWidgetState createState() => _SideNavigationBarHeaderWidgetState();
+  _SideNavigationBarHeaderWidgetState createState() =>
+      _SideNavigationBarHeaderWidgetState();
 }
 
-class _SideNavigationBarHeaderWidgetState extends State<SideNavigationBarHeaderWidget> {
+class _SideNavigationBarHeaderWidgetState
+    extends State<SideNavigationBarHeaderWidget> {
   @override
   Widget build(BuildContext context) {
     return _determineHeaderWidget();

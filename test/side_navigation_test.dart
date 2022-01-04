@@ -21,17 +21,23 @@ void main() {
     SideNavigationBar sideNavigationBar = SideNavigationBar(
         selectedIndex: selectedIndex,
         header: SideNavigationBarHeader(
-            image: const IconButton(onPressed: null, icon: Icon(Icons.person, size:40),),
+            image: const IconButton(
+              onPressed: null,
+              icon: Icon(Icons.person, size: 40),
+            ),
             title: const Text('Julian Otto'),
-            subtitle: Row(children: const [
-              Text('Die welt so schön...'),
-              IconButton(onPressed: null, icon: Icon(Icons.edit))
-            ],)
-        ),
+            subtitle: Row(
+              children: const [
+                Text('Die welt so schön...'),
+                IconButton(onPressed: null, icon: Icon(Icons.edit))
+              ],
+            )),
         footer: SideNavigationBarFooter(
           label: const Text('Footer label'),
         ),
-        items: const [SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard')],
+        items: const [
+          SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard')
+        ],
         onTap: (index) {
           selectedIndex = index;
         });
@@ -49,11 +55,13 @@ void main() {
     expect(find.byType(SideNavigationBar), findsOneWidget);
     expect(find.byIcon(Icons.dashboard), findsOneWidget);
     expect(
-        (widgetTester.firstWidget(find.byIcon(Icons.dashboard)) as Icon).color, Colors.blue[200]);
+        (widgetTester.firstWidget(find.byIcon(Icons.dashboard)) as Icon).color,
+        Colors.blue[200]);
     expect(find.byType(ListTile), findsOneWidget);
   });
 
-  testWidgets('SideNavigationBar displays its items correctly. Extra color passed.',
+  testWidgets(
+      'SideNavigationBar displays its items correctly. Extra color passed.',
       (widgetTester) async {
     // Define initial index and views
     int selectedIndex = 0;
@@ -68,17 +76,23 @@ void main() {
     SideNavigationBar sideNavigationBar = SideNavigationBar(
       selectedIndex: selectedIndex,
       header: SideNavigationBarHeader(
-          image: const IconButton(onPressed: null, icon: Icon(Icons.person, size:40),),
+          image: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.person, size: 40),
+          ),
           title: const Text('Julian Otto'),
-          subtitle: Row(children: const [
-            Text('Die welt so schön...'),
-            IconButton(onPressed: null, icon: Icon(Icons.edit))
-          ],)
-      ),
+          subtitle: Row(
+            children: const [
+              Text('Die welt so schön...'),
+              IconButton(onPressed: null, icon: Icon(Icons.edit))
+            ],
+          )),
       footer: SideNavigationBarFooter(
         label: const Text('Footer label'),
       ),
-      items: const [SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard')],
+      items: const [
+        SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard')
+      ],
       onTap: (index) {
         selectedIndex = index;
       },
@@ -97,7 +111,9 @@ void main() {
     await widgetTester.pumpWidget(app);
     expect(find.byType(SideNavigationBar), findsOneWidget);
     expect(find.byIcon(Icons.dashboard), findsOneWidget);
-    expect((widgetTester.firstWidget(find.byIcon(Icons.dashboard)) as Icon).color, Colors.pink);
+    expect(
+        (widgetTester.firstWidget(find.byIcon(Icons.dashboard)) as Icon).color,
+        Colors.pink);
     expect(find.byType(ListTile), findsOneWidget);
   });
 
@@ -122,13 +138,17 @@ void main() {
     SideNavigationBar sideNavigationBar = SideNavigationBar(
         selectedIndex: selectedIndex,
         header: SideNavigationBarHeader(
-            image: const IconButton(onPressed: null, icon: Icon(Icons.person, size:40),),
+            image: const IconButton(
+              onPressed: null,
+              icon: Icon(Icons.person, size: 40),
+            ),
             title: const Text('Julian Otto'),
-            subtitle: Row(children: const [
-              Text('Die welt so schön...'),
-              IconButton(onPressed: null, icon: Icon(Icons.edit))
-            ],)
-        ),
+            subtitle: Row(
+              children: const [
+                Text('Die welt so schön...'),
+                IconButton(onPressed: null, icon: Icon(Icons.edit))
+              ],
+            )),
         footer: SideNavigationBarFooter(
           label: const Text('Footer label'),
         ),
@@ -177,13 +197,17 @@ void main() {
     SideNavigationBar sideNavigationBar = SideNavigationBar(
         selectedIndex: selectedIndex,
         header: SideNavigationBarHeader(
-            image: const IconButton(onPressed: null, icon: Icon(Icons.person, size:40),),
+            image: const IconButton(
+              onPressed: null,
+              icon: Icon(Icons.person, size: 40),
+            ),
             title: const Text('Julian Otto'),
-            subtitle: Row(children: const [
-              Text('Die welt so schön...'),
-              IconButton(onPressed: null, icon: Icon(Icons.edit))
-            ],)
-        ),
+            subtitle: Row(
+              children: const [
+                Text('Die welt so schön...'),
+                IconButton(onPressed: null, icon: Icon(Icons.edit))
+              ],
+            )),
         footer: SideNavigationBarFooter(
           label: const Text('Footer label'),
         ),

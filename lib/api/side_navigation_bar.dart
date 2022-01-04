@@ -186,7 +186,8 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
         .asMap()
         .entries
         .map<SideNavigationBarItemWidget>(
-            (MapEntry<int, SideNavigationBarItem> entry) => SideNavigationBarItemWidget(
+            (MapEntry<int, SideNavigationBarItem> entry) =>
+                SideNavigationBarItemWidget(
                   icon: entry.value.icon,
                   label: entry.value.label,
                   onTap: widget.onTap,

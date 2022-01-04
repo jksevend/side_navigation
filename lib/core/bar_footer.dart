@@ -26,10 +26,12 @@ class SideNavigationBarFooterWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SideNavigationBarFooterWidgetState createState() => _SideNavigationBarFooterWidgetState();
+  _SideNavigationBarFooterWidgetState createState() =>
+      _SideNavigationBarFooterWidgetState();
 }
 
-class _SideNavigationBarFooterWidgetState extends State<SideNavigationBarFooterWidget> {
+class _SideNavigationBarFooterWidgetState
+    extends State<SideNavigationBarFooterWidget> {
   @override
   Widget build(BuildContext context) {
     return _determineFooterWidget();
@@ -62,7 +64,9 @@ class _SideNavigationBarFooterWidgetState extends State<SideNavigationBarFooterW
   /// Returns the toggler widget for the footer
   Widget _togglerWidget() => IconButton(
         icon: Icon(
-          widget.expanded ? widget.footerData.shrinkIcon : widget.footerData.expandIcon,
+          widget.expanded
+              ? widget.footerData.shrinkIcon
+              : widget.footerData.expandIcon,
         ),
         onPressed: widget.onToggle,
       );

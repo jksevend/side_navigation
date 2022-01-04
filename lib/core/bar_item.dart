@@ -36,16 +36,20 @@ class SideNavigationBarItemWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  _SideNavigationBarItemWidgetState createState() => _SideNavigationBarItemWidgetState();
+  _SideNavigationBarItemWidgetState createState() =>
+      _SideNavigationBarItemWidgetState();
 }
 
-class _SideNavigationBarItemWidgetState extends State<SideNavigationBarItemWidget> {
+class _SideNavigationBarItemWidgetState
+    extends State<SideNavigationBarItemWidget> {
   @override
   Widget build(BuildContext context) {
     // Get the data holders from the parent
-    final List<SideNavigationBarItem> barItems = SideNavigationBar.of(context).widget.items;
+    final List<SideNavigationBarItem> barItems =
+        SideNavigationBar.of(context).widget.items;
     // Get the current selected index from the parent
-    final int selectedIndex = SideNavigationBar.of(context).widget.selectedIndex;
+    final int selectedIndex =
+        SideNavigationBar.of(context).widget.selectedIndex;
     // Check if this tile is selected
     final bool isSelected = _isTileSelected(barItems, selectedIndex);
 
@@ -81,7 +85,8 @@ class _SideNavigationBarItemWidgetState extends State<SideNavigationBarItemWidge
   ///
   /// Looks at the both item labels to compare whether they are equal
   /// and compares the parents [index] with this tiles index
-  bool _isTileSelected(final List<SideNavigationBarItem> items, final int index) {
+  bool _isTileSelected(
+      final List<SideNavigationBarItem> items, final int index) {
     for (final SideNavigationBarItem item in items) {
       if (item.label == widget.label && index == widget.index) {
         return true;
@@ -96,6 +101,8 @@ class _SideNavigationBarItemWidgetState extends State<SideNavigationBarItemWidge
   Color _getSelectedTileColor(final bool isSelected) {
     return isSelected
         ? widget.color
-        : (Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.grey);
+        : (Theme.of(context).brightness == Brightness.dark
+            ? Colors.white
+            : Colors.grey);
   }
 }
