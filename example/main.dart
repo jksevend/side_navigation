@@ -51,17 +51,24 @@ class _MainViewState extends State<MainView> {
           SideNavigationBar(
             selectedIndex: selectedIndex,
             header: SideNavigationBarHeader(
-                image: const IconButton(
-                  onPressed: null,
-                  icon: Icon(Icons.person, size: 40),
-                ),
-                title: const Text('Julian Otto'),
-                subtitle: Row(
-                  children: const [
-                    Text('Die welt so schön...'),
-                    IconButton(onPressed: null, icon: Icon(Icons.edit))
-                  ],
-                )),
+              image: const IconButton(
+                onPressed: null,
+                icon: Icon(Icons.person, size: 40),
+              ),
+              title: const Text('Max Mustermann'),
+              subtitle: Row(
+                children: const [
+                  Text('Edit something'),
+                  IconButton(
+                    onPressed: null,
+                    icon: Icon(
+                      Icons.edit,
+                      size: 16,
+                    ),
+                  )
+                ],
+              ),
+            ),
             footer: const SideNavigationBarFooter(
               label: Text('Footer label'),
             ),

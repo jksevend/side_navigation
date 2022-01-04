@@ -13,3 +13,7 @@
 
 ## 0.0.4
 * You can now choose the background color of the `SideNavigationBar`
+
+## 0.0.5
+* ``SideNavigationBarHeader`` and ``SideNavigationBarFooter`` is now available
+* You can now specify whether ``SideNavigationBar`` should be ``initiallyExpanded`` or not

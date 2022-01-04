@@ -101,7 +101,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
         color: widget.color,
         border: Border(
           right: BorderSide(
-            width: 0.1,
+            width: 0.5,
             color: MediaQuery.of(context).platformBrightness == Brightness.light
                 ? Colors.grey[700]!
                 : Colors.white,
