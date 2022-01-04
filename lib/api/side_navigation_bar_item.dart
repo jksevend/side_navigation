@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
-/// This acts as a data holder to provide [icon] and [label]
+/// Interface to provide information about item use in [SideNavigationBar.items]
 class SideNavigationBarItem {
   /// The [IconData] you want to display
   final IconData icon;
 
-  /// Information about the navigatable route
+  /// A text to display route information
   final String label;
-  const SideNavigationBarItem({required this.icon, required this.label});
+
+  /// Item data
+  const SideNavigationBarItem({
+    required this.icon,
+    required this.label,
+  });
 }

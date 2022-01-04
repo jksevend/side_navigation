@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:side_navigation/api/side_navigation_bar_footer.dart';
+import 'package:side_navigation/api/side_navigation_bar_header.dart';
 import 'package:side_navigation/side_navigation.dart';
 
 void main() {
@@ -34,6 +35,7 @@ class _MainViewState extends State<MainView> {
 
   /// The currently selected index of the bar
   int selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +50,21 @@ class _MainViewState extends State<MainView> {
           /// Pretty similar to the BottomNavigationBar!
           SideNavigationBar(
             selectedIndex: selectedIndex,
+            header: SideNavigationBarHeader(
+                image: const IconButton(
+                  onPressed: null,
+                  icon: Icon(Icons.person, size: 40),
+                ),
+                title: const Text('Julian Otto'),
+                subtitle: Row(
+                  children: const [
+                    Text('Die welt so schön...'),
+                    IconButton(onPressed: null, icon: Icon(Icons.edit))
+                  ],
+                )),
+            footer: const SideNavigationBarFooter(
+              label: Text('Footer label'),
+            ),
             items: const [
               SideNavigationBarItem(
                 icon: Icons.dashboard,

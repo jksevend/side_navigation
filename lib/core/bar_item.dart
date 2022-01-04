@@ -1,32 +1,31 @@
 import 'package:flutter/material.dart';
-
-import 'package:side_navigation/api/side_navigation_bar_item.dart';
 import 'package:side_navigation/api/side_navigation_bar.dart';
+import 'package:side_navigation/api/side_navigation_bar_item.dart';
 
-/// This widget uses the [icon] and [label] value from the [SideNavigationBarItem]
-/// to generate a completely new widget which provides an [onTap] callback while
+/// This widget uses information obtained from [SideNavigationBarItem]
+/// to generate the widget which provides an [onTap] callback while
 /// it also holds the [index] of its position defined in the [SideNavigationBar]'s
-/// [SideNavigationBar.items]
-class SideNavigationBarItemTile extends StatefulWidget {
-  /// From [SideNavigationBarItem]
-  /// What [IconData] to display
+/// [SideNavigationBar.items] field.
+class SideNavigationBarItemWidget extends StatefulWidget {
+  /// The icon to display
   final IconData icon;
 
-  /// From [SideNavigationBarItem]
-  /// Info text about the choosable navigation option
+  /// Info text about the route
   final String label;
 
-  /// From [SideNavigationBar]
   /// What to do on item tap
   final ValueChanged<int> onTap;
 
-  /// From [SideNavigationBar]
-  /// The currently selected index which the end user chooses
+  /// The currently selected index which the user chooses
   final int index;
 
+  /// The color of the tile
   final Color color;
+
+  /// The current [expanded] state of [SideNavigationBar]
   final bool expanded;
-  const SideNavigationBarItemTile(
+
+  const SideNavigationBarItemWidget(
       {Key? key,
       required this.icon,
       required this.label,
@@ -37,33 +36,30 @@ class SideNavigationBarItemTile extends StatefulWidget {
       : super(key: key);
 
   @override
-  _SideNavigationBarItemTileState createState() =>
-      _SideNavigationBarItemTileState();
+  _SideNavigationBarItemWidgetState createState() => _SideNavigationBarItemWidgetState();
 }
 
-class _SideNavigationBarItemTileState extends State<SideNavigationBarItemTile> {
+class _SideNavigationBarItemWidgetState extends State<SideNavigationBarItemWidget> {
   @override
   Widget build(BuildContext context) {
     // Get the data holders from the parent
-    final List<SideNavigationBarItem> barItems =
-        SideNavigationBar.of(context).widget.items;
+    final List<SideNavigationBarItem> barItems = SideNavigationBar.of(context).widget.items;
     // Get the current selected index from the parent
-    final int selectedIndex =
-        SideNavigationBar.of(context).widget.selectedIndex;
+    final int selectedIndex = SideNavigationBar.of(context).widget.selectedIndex;
     // Check if this tile is selected
-    final bool isSelected = isTileSelected(barItems, selectedIndex);
+    final bool isSelected = _isTileSelected(barItems, selectedIndex);
 
-    /// Return a basic listtile for now
+    /// Return a basic list-tile for now
     return widget.expanded
         ? ListTile(
             leading: Icon(
               widget.icon,
-              color: getTileColor(isSelected),
+              color: _getSelectedTileColor(isSelected),
             ),
             title: Text(
               widget.label,
               style: TextStyle(
-                color: getTileColor(isSelected),
+                color: _getSelectedTileColor(isSelected),
               ),
             ),
             onTap: () {
@@ -73,7 +69,7 @@ class _SideNavigationBarItemTileState extends State<SideNavigationBarItemTile> {
         : IconButton(
             icon: Icon(
               widget.icon,
-              color: getTileColor(isSelected),
+              color: _getSelectedTileColor(isSelected),
             ),
             onPressed: () {
               widget.onTap(widget.index);
@@ -83,10 +79,9 @@ class _SideNavigationBarItemTileState extends State<SideNavigationBarItemTile> {
 
   /// Determines if this tile is currently selected
   ///
-  /// Looks at the both item labels to compare wheter they are equal
+  /// Looks at the both item labels to compare whether they are equal
   /// and compares the parents [index] with this tiles index
-  bool isTileSelected(
-      final List<SideNavigationBarItem> items, final int index) {
+  bool _isTileSelected(final List<SideNavigationBarItem> items, final int index) {
     for (final SideNavigationBarItem item in items) {
       if (item.label == widget.label && index == widget.index) {
         return true;
@@ -98,11 +93,9 @@ class _SideNavigationBarItemTileState extends State<SideNavigationBarItemTile> {
   /// Check if this item [isSelected] and return the passed [widget.color]
   /// If it is not selected return either [Colors.white] or [Colors.grey] based on the
   /// [Brightness]
-  Color getTileColor(final bool isSelected) {
+  Color _getSelectedTileColor(final bool isSelected) {
     return isSelected
         ? widget.color
-        : (Theme.of(context).brightness == Brightness.dark
-            ? Colors.white
-            : Colors.grey);
+        : (Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.grey);
   }
 }
