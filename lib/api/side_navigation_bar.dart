@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:side_navigation/api/side_navigation_bar_footer.dart';
 import 'package:side_navigation/api/side_navigation_bar_header.dart';
+import 'package:side_navigation/api/side_navigation_bar_theme.dart';
 import 'package:side_navigation/core/bar_footer.dart';
 import 'package:side_navigation/core/bar_header.dart';
 import 'package:side_navigation/core/bar_item.dart';
@@ -34,11 +35,15 @@ class SideNavigationBar extends StatefulWidget {
   /// The footer of the bar
   final SideNavigationBarFooter footer;
 
-  /// The background [Color] of the [SideNavigationBar]
+  /// Theme data of the bar.
+  /// If nothing null is passed it defaults to [SideNavigationBarTheme.standard]
+  late final SideNavigationBarTheme? theme;
+
+  /// The background [Color] of the [SideNavigationBar].
   /// If nothing or null is passed it defaults to the color of the parent container
   final Color? color;
 
-  /// The [Color] of an selected [SideNavigationBarItem]
+  /// The [Color] of an selected [SideNavigationBarItem].
   /// If nothing or null is passed it defaults to Colors.blue[200]
   final Color? selectedItemColor;
 
@@ -50,18 +55,21 @@ class SideNavigationBar extends StatefulWidget {
   /// True by default
   final bool initiallyExpanded;
 
-  const SideNavigationBar({
+  SideNavigationBar({
     Key? key,
     required this.selectedIndex,
     required this.items,
     required this.onTap,
     required this.header,
     required this.footer,
+    this.theme,
     this.color,
     this.selectedItemColor,
     this.expandable = true,
     this.initiallyExpanded = true,
-  }) : super(key: key);
+  }) : super(key: key) {
+    theme ??= SideNavigationBarTheme.standard();
+  }
 
   @override
   _SideNavigationBarState createState() => _SideNavigationBarState();
@@ -69,7 +77,7 @@ class SideNavigationBar extends StatefulWidget {
   /// Access [_SideNavigationBarState] from outside based on [context]
   static _SideNavigationBarState of(final BuildContext context) {
     final _SideNavigationBarState? state =
-        context.findAncestorStateOfType<_SideNavigationBarState>();
+    context.findAncestorStateOfType<_SideNavigationBarState>();
     if (state == null) {
       throw StateError('Trying to access null state _SideNavigationBarState');
     }
@@ -102,7 +110,9 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
         border: Border(
           right: BorderSide(
             width: 0.5,
-            color: MediaQuery.of(context).platformBrightness == Brightness.light
+            color: MediaQuery
+                .of(context)
+                .platformBrightness == Brightness.light
                 ? Colors.grey[700]!
                 : Colors.white,
           ),
@@ -187,14 +197,14 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
         .entries
         .map<SideNavigationBarItemWidget>(
             (MapEntry<int, SideNavigationBarItem> entry) =>
-                SideNavigationBarItemWidget(
-                  icon: entry.value.icon,
-                  label: entry.value.label,
-                  onTap: widget.onTap,
-                  index: entry.key,
-                  expanded: _expanded,
-                  color: _evaluateSelectedItemColor(),
-                ))
+            SideNavigationBarItemWidget(
+              icon: entry.value.icon,
+              label: entry.value.label,
+              onTap: widget.onTap,
+              index: entry.key,
+              expanded: _expanded,
+              color: _evaluateSelectedItemColor(),
+            ))
         .toList();
     return _items;
   }
