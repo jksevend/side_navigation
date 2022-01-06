@@ -1,5 +1,5 @@
 name: side_navigation
-description: Provides Flutter navigation by using a sidemenu, Similar to Drawer or ButtomNavigationBar.
+description: Provides Flutter navigation by using a sidemenu similar to Drawer or ButtomNavigationBar.
 version: 0.0.6
 repository: https://github.com/jksevend/side_navigation
 

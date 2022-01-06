@@ -28,7 +28,7 @@ import 'package:side_navigation/side_navigation.dart';
 Right now it is recommended to wrap the ```SideNavigationBar``` in a ```Row``` and put an ```Expanded``` widget around the content to make it expand the rest of the available width. You can also use an ```AppBar``` within the Scaffold. 
 
 
-Example:
+Minimal Example:
 ```
 class MainView extends StatefulWidget {
   const MainView({Key? key}) : super(key: key);
@@ -68,28 +68,6 @@ class _MainViewState extends State<MainView> {
           /// Pretty similar to the BottomNavigationBar!
           SideNavigationBar(
             selectedIndex: selectedIndex,
-            header: SideNavigationBarHeader(
-              image: const IconButton(
-                onPressed: null,
-                icon: Icon(Icons.person, size: 40),
-              ),
-              title: const Text('Max Mustermann'),
-              subtitle: Row(
-                children: const [
-                  Text('Edit something'),
-                  IconButton(
-                    onPressed: null,
-                    icon: Icon(
-                      Icons.edit,
-                      size: 16,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            footer: const SideNavigationBarFooter(
-              label: Text('Footer label'),
-            ),
             items: const [
               SideNavigationBarItem(
                 icon: Icons.dashboard,
