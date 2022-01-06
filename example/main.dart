@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:side_navigation/api/side_navigation_bar_footer.dart';
-import 'package:side_navigation/api/side_navigation_bar_header.dart';
 import 'package:side_navigation/side_navigation.dart';
 
 void main() {
   runApp(
     MaterialApp(
-      theme: ThemeData.light(),
+      theme: ThemeData.dark(),
+      themeMode: ThemeMode.dark,
       home: const MainView(),
     ),
   );
@@ -50,28 +49,6 @@ class _MainViewState extends State<MainView> {
           /// Pretty similar to the BottomNavigationBar!
           SideNavigationBar(
             selectedIndex: selectedIndex,
-            header: SideNavigationBarHeader(
-              image: const IconButton(
-                onPressed: null,
-                icon: Icon(Icons.person, size: 40),
-              ),
-              title: const Text('Max Mustermann'),
-              subtitle: Row(
-                children: const [
-                  Text('Edit something'),
-                  IconButton(
-                    onPressed: null,
-                    icon: Icon(
-                      Icons.edit,
-                      size: 16,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            footer: const SideNavigationBarFooter(
-              label: Text('Footer label'),
-            ),
             items: const [
               SideNavigationBarItem(
                 icon: Icons.dashboard,

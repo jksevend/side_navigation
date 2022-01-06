@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:side_navigation/api/side_navigation_bar_footer.dart';
+import 'package:side_navigation/side_navigation.dart';
 
 /// Represents the footer widget which is rendered on the screen
 ///
@@ -14,15 +14,15 @@ class SideNavigationBarFooterWidget extends StatefulWidget {
   /// The current expanded state of [SideNavigationBar]
   final bool expanded;
 
-  /// What to do when the toggler is pressed
-  final VoidCallback onToggle;
+  /// [SideNavigationBar.initiallyExpanded] value
+  final bool initiallyExpanded;
 
   const SideNavigationBarFooterWidget({
     Key? key,
     required this.footerData,
     required this.expandable,
     required this.expanded,
-    required this.onToggle,
+    required this.initiallyExpanded,
   }) : super(key: key);
 
   @override
@@ -41,33 +41,42 @@ class _SideNavigationBarFooterWidgetState
   Widget _determineFooterWidget() {
     if (widget.expandable) {
       if (widget.expanded) {
-        return Align(
-          alignment: Alignment.bottomCenter,
-          child: Column(
-            children: [
-              widget.footerData.label,
-              _togglerWidget(),
-            ],
-          ),
-        );
+        return _FooterWidget(footerData: widget.footerData);
       } else {
-        return _togglerWidget();
+        return Container();
       }
     } else {
-      return Align(
-        alignment: Alignment.bottomCenter,
-        child: Container(),
-      );
+      if (widget.initiallyExpanded) {
+        return _FooterWidget(footerData: widget.footerData);
+      } else {
+        return Container();
+      }
     }
   }
+}
 
-  /// Returns the toggler widget for the footer
-  Widget _togglerWidget() => IconButton(
-        icon: Icon(
-          widget.expanded
-              ? widget.footerData.shrinkIcon
-              : widget.footerData.expandIcon,
-        ),
-        onPressed: widget.onToggle,
-      );
+/// Internal Widget to just handle displaying data
+class _FooterWidget extends StatefulWidget {
+  final SideNavigationBarFooter footerData;
+  const _FooterWidget({Key? key, required this.footerData}) : super(key: key);
+
+  @override
+  _FooterWidgetState createState() => _FooterWidgetState();
+}
+
+class _FooterWidgetState extends State<_FooterWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: widget.footerData.label,
+          ),
+        ],
+      ),
+    );
+  }
 }

@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:side_navigation/api/side_navigation_bar.dart';
-import 'package:side_navigation/api/side_navigation_bar_item.dart';
+import 'package:side_navigation/side_navigation.dart';
 
 /// This widget uses information obtained from [SideNavigationBarItem]
 /// to generate the widget which provides an [onTap] callback while
 /// it also holds the [index] of its position defined in the [SideNavigationBar]'s
 /// [SideNavigationBar.items] field.
 class SideNavigationBarItemWidget extends StatefulWidget {
-  /// The icon to display
-  final IconData icon;
-
-  /// Info text about the route
-  final String label;
+  /// Item data obtained from user
+  final SideNavigationBarItem itemData;
 
   /// What to do on item tap
   final ValueChanged<int> onTap;
@@ -19,21 +15,20 @@ class SideNavigationBarItemWidget extends StatefulWidget {
   /// The currently selected index which the user chooses
   final int index;
 
-  /// The color of the tile
-  final Color color;
+  /// Style customizations
+  final ItemTheme itemTheme;
 
   /// The current [expanded] state of [SideNavigationBar]
   final bool expanded;
 
-  const SideNavigationBarItemWidget(
-      {Key? key,
-      required this.icon,
-      required this.label,
-      required this.onTap,
-      required this.index,
-      required this.color,
-      required this.expanded})
-      : super(key: key);
+  const SideNavigationBarItemWidget({
+    Key? key,
+    required this.itemData,
+    required this.onTap,
+    required this.index,
+    required this.itemTheme,
+    required this.expanded,
+  }) : super(key: key);
 
   @override
   _SideNavigationBarItemWidgetState createState() =>
@@ -54,31 +49,35 @@ class _SideNavigationBarItemWidgetState
     final bool isSelected = _isTileSelected(barItems, selectedIndex);
 
     /// Return a basic list-tile for now
-    return widget.expanded
-        ? ListTile(
-            leading: Icon(
-              widget.icon,
-              color: _getSelectedTileColor(isSelected),
-            ),
-            title: Text(
-              widget.label,
-              style: TextStyle(
-                color: _getSelectedTileColor(isSelected),
+    return Tooltip(
+      waitDuration: const Duration(seconds: 1),
+      message: widget.itemData.label,
+      child: widget.expanded
+          ? ListTile(
+              leading: Icon(
+                widget.itemData.icon,
+                color: _evaluateColor(isSelected),
               ),
+              title: Text(
+                widget.itemData.label,
+                style: TextStyle(
+                  color: _evaluateColor(isSelected),
+                ),
+              ),
+              onTap: () {
+                widget.onTap(widget.index);
+              },
+            )
+          : IconButton(
+              icon: Icon(
+                widget.itemData.icon,
+                color: _evaluateColor(isSelected),
+              ),
+              onPressed: () {
+                widget.onTap(widget.index);
+              },
             ),
-            onTap: () {
-              widget.onTap(widget.index);
-            },
-          )
-        : IconButton(
-            icon: Icon(
-              widget.icon,
-              color: _getSelectedTileColor(isSelected),
-            ),
-            onPressed: () {
-              widget.onTap(widget.index);
-            },
-          );
+    );
   }
 
   /// Determines if this tile is currently selected
@@ -88,21 +87,19 @@ class _SideNavigationBarItemWidgetState
   bool _isTileSelected(
       final List<SideNavigationBarItem> items, final int index) {
     for (final SideNavigationBarItem item in items) {
-      if (item.label == widget.label && index == widget.index) {
+      if (item.label == widget.itemData.label && index == widget.index) {
         return true;
       }
     }
     return false;
   }
 
-  /// Check if this item [isSelected] and return the passed [widget.color]
+  /// Check if this item [isSelected] and return the passed [widget.selectedColor]
   /// If it is not selected return either [Colors.white] or [Colors.grey] based on the
   /// [Brightness]
-  Color _getSelectedTileColor(final bool isSelected) {
+  Color? _evaluateColor(final bool isSelected) {
     return isSelected
-        ? widget.color
-        : (Theme.of(context).brightness == Brightness.dark
-            ? Colors.white
-            : Colors.grey);
+        ? widget.itemTheme.selectedItemColor
+        : widget.itemTheme.unselectedItemColor;
   }
 }
