@@ -20,3 +20,8 @@
 
 ## 0.0.6
 * Resolved ``flutter format`` issues
+
+## 0.0.7
+* ``SideNavigationBarHeader`` and ``SideNavigationBarFooter`` are now optional
+* ``SideNavigationBarTheme`` is now available to customize various components
+* To provide a way to listen to the state change of the bar a ``SideBarToggler`` is introduced.

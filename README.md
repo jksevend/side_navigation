@@ -4,13 +4,26 @@ This package provides support to navigate on your app. It was inspired from both
 
 
 > **NOTE**: If you are looking for a Flutter implementation of this navigation approach check out `NavigationRail` which I recently stumbled upon after publishing this package.  
+
+## Table of contents
+- [Preview](#preview)
+- [Getting started](#getting-started)
+- [Usage](#usage)
+  * [Minimal Example](#minimal-example)
+  * [``SideNavigationBar`` Fields](#sidenavigationbar-fields)
+  * [``SideNavigationBarTheme`` Fields](#sidenavigationbartheme-fields)
+    * [``ItemTheme`` fields](#itemtheme-fields)
+    * [``TogglerTheme`` fields](#togglertheme-fields)
+- [Showcase](#showcase)
+- [Future Updates](#future-updates)
+- [Bugs, Errors, etc](#bugs-errors-etc)
 ## Preview
 ![Side Navigation Bar Preview](https://media.giphy.com/media/1f9GQyybLR4N722oyU/giphy.gif)
 ## Getting started
 First add the dependency into your ```pubspec.yaml```:
 ```
 dependencies:
-    side_navigation: ^0.0.6
+    side_navigation: ^0.0.7
 ```
 
 **OR**
@@ -28,7 +41,7 @@ import 'package:side_navigation/side_navigation.dart';
 Right now it is recommended to wrap the ```SideNavigationBar``` in a ```Row``` and put an ```Expanded``` widget around the content to make it expand the rest of the available width. You can also use an ```AppBar``` within the Scaffold. 
 
 
-Minimal Example:
+### Minimal Example:
 ```
 class MainView extends StatefulWidget {
   const MainView({Key? key}) : super(key: key);
@@ -100,6 +113,38 @@ class _MainViewState extends State<MainView> {
 }
 ```
 
+### ``SideNavigationBar`` Fields
+Apart from the fields you saw in the minimal example above there exist following more fields:
+
+| Field | Description |
+| --- | ----------- |
+| ``header`` | A ``SideNavigationBarHeader`` displayed above the items |
+| ``footer`` | A ``SideNavigationBarFooter`` displayed below the items and above ``toggler`` |
+| ``toggler`` | A ``SideBarToggler`` to toggle the bars state |
+| ``theme`` | ``SideBarNavigationBarTheme`` provides customizations. Default is ``SideNavigationBarTheme.standard()`` |
+| ``expandable`` | Whether the bar should be expandable at all. If this is ``false`` no ``toggler`` will be displayed. Default ``true`` |
+| ``initiallyExpanded`` | If the bar should be expanded on startup. Default ``true ``|
+
+### ``SideNavigationBarTheme`` Fields
+| Field | Description |
+| --- | ----------- |
+| ``backgroundColor`` | The color of the bar. Defaults to parent containers color |
+| ``itemTheme`` | Item style customizations. Defaults to ``ItemTheme.standard()`` |
+| ``togglerTheme`` | Toggler style customizations. Defaults to ``TogglerTheme.standard()`` |
+| ``showHeaderDivider`` | Show divider between header and items. Default ``true`` |
+| ``showMainDivider`` | Show divider between bar and main content. Default ``true`` |
+| ``showFooterDivider`` | Show divider between items and footer. Default ``true`` |
+#### ``ItemTheme`` Fields
+| Field      | Description |
+| ----------- | ----------- |
+| ``selectedItemColor``      | Color of ``SideNavigationBarItem.icon`` and ``SideNavigationBarItem.label`` when selected. Default is native brightness color      |
+| ``unselectedItemColor``   | Color of ``SideNavigationBarItem.icon`` and ``SideNavigationBarItem.label`` when not selected. Default is native brightness color        |
+#### ``TogglerTheme`` Fields
+| Field      | Description |
+| ----------- | ----------- |
+| ``expandIconColor``      | Color of ``SideBarToggler.expandIcon`` when bar is shrinked. Default is native brightness color       |
+| ``shrinkIconColor``   | Color of ``SideBarToggler.shrinkIcon`` when bar is expanded. Default is native brightness color       |
+## Showcase
 **Desktop:**
 
 Personally on Desktop I like it more without the ```AppBar```
@@ -119,8 +164,9 @@ For phones, I would recommend only using this type of navigation when the device
 ## Future Updates
 Currently, the plan is to add support for
 
-* Adding a style component
 * Choosable position of the toggler
+* Divider more style customizations
+* Maybe let header and footer be normal widget: [Github Issue](https://github.com/jksevend/side_navigation/issues/9)
 
 ## Bugs, Errors etc.
 If you find any weird behaviour, bugs or errors please let me know.
