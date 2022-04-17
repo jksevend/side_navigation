@@ -45,7 +45,6 @@ class SideNavigationBarTheme {
 
 /// Customize the styling of [SideNavigationBarItem]
 class SideNavigationBarItemTheme {
-
   /// Default color for text and icon of selected item
   static final Color defaultSelectedItemColor = Colors.blue[200]!;
 
@@ -95,10 +94,12 @@ class SideNavigationBarTogglerTheme {
   /// If nothing or null is passed it defaults to native brightness colors
   final Color? shrinkIconColor;
 
-  const SideNavigationBarTogglerTheme({this.expandIconColor, this.shrinkIconColor});
+  const SideNavigationBarTogglerTheme(
+      {this.expandIconColor, this.shrinkIconColor});
 
   /// Default theme
-  factory SideNavigationBarTogglerTheme.standard() => const SideNavigationBarTogglerTheme(
+  factory SideNavigationBarTogglerTheme.standard() =>
+      const SideNavigationBarTogglerTheme(
         // Brightness dependant
         expandIconColor: null,
         shrinkIconColor: null,

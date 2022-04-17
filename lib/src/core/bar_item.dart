@@ -103,9 +103,11 @@ class _SideNavigationBarItemWidgetState
     final Brightness brightness = Theme.of(context).brightness;
     return isSelected
         // If selectedItemColor is null we pass the default
-        ? widget.itemTheme.selectedItemColor ?? SideNavigationBarItemTheme.defaultSelectedItemColor
+        ? widget.itemTheme.selectedItemColor ??
+            SideNavigationBarItemTheme.defaultSelectedItemColor
         // If unselectedItemColor is null we evaluate current brightness and return either grey or white
-        : widget.itemTheme.unselectedItemColor ?? (brightness == Brightness.light ? Colors.grey : Colors.white);
+        : widget.itemTheme.unselectedItemColor ??
+            (brightness == Brightness.light ? Colors.grey : Colors.white);
   }
 
   /// Evaluate what text style to use for an item based on a
