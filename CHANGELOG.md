@@ -38,3 +38,6 @@
 ## 1.0.0
 * Major release
 * Fixing of release 0.0.9 (published without changes)
+
+## 1.0.1
+* Fix formatting issues
