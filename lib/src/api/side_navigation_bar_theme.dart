@@ -8,10 +8,10 @@ class SideNavigationBarTheme {
   final Color? backgroundColor;
 
   /// The theme of a [SideNavigationBarItem]
-  final ItemTheme itemTheme;
+  final SideNavigationBarItemTheme itemTheme;
 
   /// The theme of a [SideBarToggler]
-  final TogglerTheme togglerTheme;
+  final SideNavigationBarTogglerTheme togglerTheme;
 
   /// Whether to show a [Divider] between [SideNavigationBarHeader] and [SideNavigationBar.items]
   final bool showHeaderDivider;
@@ -23,20 +23,20 @@ class SideNavigationBarTheme {
   final bool showFooterDivider;
 
   const SideNavigationBarTheme({
-    required this.backgroundColor,
     required this.itemTheme,
     required this.togglerTheme,
     required this.showHeaderDivider,
     required this.showMainDivider,
     required this.showFooterDivider,
+    this.backgroundColor,
   });
 
   /// Default theme
   factory SideNavigationBarTheme.standard() => SideNavigationBarTheme(
         // Inherit from parent unless specifically set
         backgroundColor: null,
-        itemTheme: ItemTheme.standard(),
-        togglerTheme: TogglerTheme.standard(),
+        itemTheme: SideNavigationBarItemTheme.standard(),
+        togglerTheme: SideNavigationBarTogglerTheme.standard(),
         showHeaderDivider: true,
         showMainDivider: true,
         showFooterDivider: true,
@@ -44,7 +44,11 @@ class SideNavigationBarTheme {
 }
 
 /// Customize the styling of [SideNavigationBarItem]
-class ItemTheme {
+class SideNavigationBarItemTheme {
+
+  /// Default color for text and icon of selected item
+  static final Color defaultSelectedItemColor = Colors.blue[200]!;
+
   /// The color of an selected [SideNavigationBarItem].
   /// If nothing or null is passed it defaults to Colors.blue[200]
   final Color? selectedItemColor;
@@ -54,18 +58,35 @@ class ItemTheme {
   /// on the brightness for [Icon] and [Text]
   final Color? unselectedItemColor;
 
-  const ItemTheme({this.selectedItemColor, this.unselectedItemColor});
+  /// The size of an [SideNavigationBarItem.icon]
+  /// If nothing or null is passed flutter will do the sizing
+  final double? iconSize;
+
+  /// Styling of label text [SideNavigationBarItem.label]
+  /// If nothing or null is passed flutter will handle styling although they will **ALWAYS**
+  /// be overridden with [selectedItemColor] and [unselectedItemColor]
+  final TextStyle? labelTextStyle;
+
+  /// Named Constructor
+  const SideNavigationBarItemTheme({
+    this.selectedItemColor,
+    this.unselectedItemColor,
+    this.iconSize,
+    this.labelTextStyle,
+  });
 
   /// Default theme
-  factory ItemTheme.standard() => ItemTheme(
-        selectedItemColor: Colors.blue[200]!,
+  factory SideNavigationBarItemTheme.standard() => SideNavigationBarItemTheme(
+        selectedItemColor: defaultSelectedItemColor,
         // Brightness dependant
         unselectedItemColor: null,
+        iconSize: null,
+        labelTextStyle: null,
       );
 }
 
 /// Customize the styling of [SideBarToggler]
-class TogglerTheme {
+class SideNavigationBarTogglerTheme {
   /// The color of [SideBarToggler.expandIcon].
   /// If nothing or null is passed it defaults to native brightness colors
   final Color? expandIconColor;
@@ -74,10 +95,10 @@ class TogglerTheme {
   /// If nothing or null is passed it defaults to native brightness colors
   final Color? shrinkIconColor;
 
-  const TogglerTheme({this.expandIconColor, this.shrinkIconColor});
+  const SideNavigationBarTogglerTheme({this.expandIconColor, this.shrinkIconColor});
 
   /// Default theme
-  factory TogglerTheme.standard() => const TogglerTheme(
+  factory SideNavigationBarTogglerTheme.standard() => const SideNavigationBarTogglerTheme(
         // Brightness dependant
         expandIconColor: null,
         shrinkIconColor: null,

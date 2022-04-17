@@ -156,14 +156,10 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
     // Evaluate the theme
     theme = widget.theme ?? SideNavigationBarTheme.standard();
     // If the bar need to be expandable
-    if (widget.expandable) {
-      _evaluateInitiallyExpanded();
-    } else {
-      _evaluateInitiallyExpanded();
-    }
+    _evaluateInitiallyExpanded();
   }
 
-  /// Evaluate that initial state of the [SideNavigationBar]
+  /// Evaluate the initial expanded state of the [SideNavigationBar]
   void _evaluateInitiallyExpanded() {
     if (widget.initiallyExpanded) {
       _expanded = widget.initiallyExpanded;
@@ -181,8 +177,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
         .asMap()
         .entries
         .map<SideNavigationBarItemWidget>(
-            (MapEntry<int, SideNavigationBarItem> entry) =>
-                SideNavigationBarItemWidget(
+            (MapEntry<int, SideNavigationBarItem> entry) => SideNavigationBarItemWidget(
                   itemData: entry.value,
                   onTap: widget.onTap,
                   itemTheme: theme.itemTheme,
@@ -195,15 +190,15 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
 
   /// Determines if a [SideNavigationBarHeader] was provided
   Widget _evaluateHeaderWidget() {
-    if (widget.header != null) {
-      return SideNavigationBarHeaderWidget(
-        headerData: widget.header!,
-        expandable: widget.expandable,
-        expanded: _expanded,
-        initiallyExpanded: widget.initiallyExpanded,
-      );
+    if (widget.header == null) {
+      return Container();
     }
-    return Container();
+    return SideNavigationBarHeaderWidget(
+      headerData: widget.header!,
+      expandable: widget.expandable,
+      expanded: _expanded,
+      initiallyExpanded: widget.initiallyExpanded,
+    );
   }
 
   /// Determines if a [SideNavigationBarFooter] was provided
@@ -230,8 +225,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
   Widget _evaluateTogglerWidget() {
     // We dont want that
     if (!widget.expandable && widget.toggler != null) {
-      throw StateError(
-          'SideNavigationBar is not expandable but a SideBarToggler is given.');
+      throw StateError('SideNavigationBar is not expandable but a SideBarToggler is given.');
     }
 
     // Toggler is not needed if the bar is not expandable
