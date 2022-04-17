@@ -41,3 +41,6 @@
 
 ## 1.0.1
 * Fix formatting issues
+
+## 1.0.2
+* More divider style customizations in ```SideNavigationBarDividerTheme```

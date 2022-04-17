@@ -4,7 +4,8 @@ import 'package:side_navigation/side_navigation.dart';
 
 void main() {
   group('Structural tests', () {
-    testWidgets('Plain bar without header or footer', (WidgetTester tester) async {
+    testWidgets('Plain bar without header or footer',
+        (WidgetTester tester) async {
       List<Widget> views = const [
         Center(
           child: Text('Dashboard page'),
@@ -25,7 +26,8 @@ void main() {
                 SideNavigationBar(
                     selectedIndex: selectedIndex,
                     items: <SideNavigationBarItem>[
-                      SideNavigationBarItem(icon: Icons.dashboard, label: startText),
+                      SideNavigationBarItem(
+                          icon: Icons.dashboard, label: startText),
                       SideNavigationBarItem(icon: Icons.person, label: endText)
                     ],
                     onTap: (newIndex) {
@@ -76,7 +78,8 @@ void main() {
                     ),
                     selectedIndex: selectedIndex,
                     items: const <SideNavigationBarItem>[
-                      SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard'),
+                      SideNavigationBarItem(
+                          icon: Icons.dashboard, label: 'Dashboard'),
                       SideNavigationBarItem(icon: Icons.person, label: 'Person')
                     ],
                     onTap: (newIndex) {
@@ -127,7 +130,8 @@ void main() {
                     footer: SideNavigationBarFooter(label: Text(footerText)),
                     selectedIndex: selectedIndex,
                     items: const <SideNavigationBarItem>[
-                      SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard'),
+                      SideNavigationBarItem(
+                          icon: Icons.dashboard, label: 'Dashboard'),
                       SideNavigationBarItem(icon: Icons.person, label: 'Person')
                     ],
                     onTap: (newIndex) {
@@ -171,8 +175,10 @@ void main() {
                   SideNavigationBar(
                       selectedIndex: selectedIndex,
                       items: <SideNavigationBarItem>[
-                        SideNavigationBarItem(icon: Icons.dashboard, label: startText),
-                        SideNavigationBarItem(icon: Icons.person, label: endText)
+                        SideNavigationBarItem(
+                            icon: Icons.dashboard, label: startText),
+                        SideNavigationBarItem(
+                            icon: Icons.person, label: endText)
                       ],
                       onTap: (newIndex) {
                         setState(() {
@@ -200,7 +206,8 @@ void main() {
         expect(find.text('Profile page'), findsOneWidget);
       });
 
-      testWidgets('Toggling the bar changes state', (WidgetTester tester) async {
+      testWidgets('Toggling the bar changes state',
+          (WidgetTester tester) async {
         List<Widget> views = const [
           Center(
             child: Text('Dashboard page'),
@@ -221,8 +228,10 @@ void main() {
                   SideNavigationBar(
                       selectedIndex: selectedIndex,
                       items: <SideNavigationBarItem>[
-                        SideNavigationBarItem(icon: Icons.dashboard, label: startText),
-                        SideNavigationBarItem(icon: Icons.person, label: endText)
+                        SideNavigationBarItem(
+                            icon: Icons.dashboard, label: startText),
+                        SideNavigationBarItem(
+                            icon: Icons.person, label: endText)
                       ],
                       onTap: (newIndex) {
                         setState(() {
@@ -247,7 +256,8 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.widgetWithText(ListTile, startText), findsNothing);
-        expect(find.widgetWithIcon(IconButton, Icons.dashboard), findsOneWidget);
+        expect(
+            find.widgetWithIcon(IconButton, Icons.dashboard), findsOneWidget);
       });
     });
   });
@@ -273,7 +283,8 @@ void main() {
                 SideNavigationBar(
                   selectedIndex: selectedIndex,
                   items: const <SideNavigationBarItem>[
-                    SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard'),
+                    SideNavigationBarItem(
+                        icon: Icons.dashboard, label: 'Dashboard'),
                     SideNavigationBarItem(icon: Icons.person, label: 'Profile')
                   ],
                   onTap: (newIndex) {
@@ -297,7 +308,8 @@ void main() {
       await tester.pumpWidget(materialApp);
 
       expect(
-          ((tester.widget(find.byType(Container).at(0)) as Container).decoration as BoxDecoration)
+          ((tester.widget(find.byType(Container).at(0)) as Container).decoration
+                  as BoxDecoration)
               .color,
           expectedColor);
     });
@@ -325,7 +337,8 @@ void main() {
                 SideNavigationBar(
                   selectedIndex: selectedIndex,
                   items: const <SideNavigationBarItem>[
-                    SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard'),
+                    SideNavigationBarItem(
+                        icon: Icons.dashboard, label: 'Dashboard'),
                     SideNavigationBarItem(icon: Icons.person, label: 'Profile')
                   ],
                   onTap: (newIndex) {
@@ -356,36 +369,46 @@ void main() {
 
       // Checking passed colors and sizes
       expect(
-          ((tester.widget(find.widgetWithText(ListTile, 'Dashboard')) as ListTile).title as Text)
+          ((tester.widget(find.widgetWithText(ListTile, 'Dashboard'))
+                      as ListTile)
+                  .title as Text)
               .style
               ?.color,
           exSelectedColor);
       expect(
-          ((tester.widget(find.widgetWithText(ListTile, 'Dashboard')) as ListTile).title as Text)
+          ((tester.widget(find.widgetWithText(ListTile, 'Dashboard'))
+                      as ListTile)
+                  .title as Text)
               .style
               ?.fontSize,
           exFontSize);
       expect(
-          ((tester.widget(find.widgetWithText(ListTile, 'Dashboard')) as ListTile).leading as Icon)
+          ((tester.widget(find.widgetWithText(ListTile, 'Dashboard'))
+                      as ListTile)
+                  .leading as Icon)
               .size,
           exIconSize);
       expect(
-          ((tester.widget(find.widgetWithText(ListTile, 'Profile')) as ListTile).title as Text)
+          ((tester.widget(find.widgetWithText(ListTile, 'Profile')) as ListTile)
+                  .title as Text)
               .style
               ?.color,
           exUnselectedColor);
       expect(
-          ((tester.widget(find.widgetWithText(ListTile, 'Profile')) as ListTile).title as Text)
+          ((tester.widget(find.widgetWithText(ListTile, 'Profile')) as ListTile)
+                  .title as Text)
               .style
               ?.fontSize,
           exFontSize);
       expect(
-          ((tester.widget(find.widgetWithText(ListTile, 'Profile')) as ListTile).leading as Icon)
+          ((tester.widget(find.widgetWithText(ListTile, 'Profile')) as ListTile)
+                  .leading as Icon)
               .size,
           exIconSize);
     });
 
-    testWidgets('Passing custom item theme - custom text style color gets overridden',
+    testWidgets(
+        'Passing custom item theme - custom text style color gets overridden',
         (WidgetTester tester) async {
       List<Widget> views = const [
         Center(
@@ -405,7 +428,8 @@ void main() {
                 SideNavigationBar(
                   selectedIndex: selectedIndex,
                   items: const <SideNavigationBarItem>[
-                    SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard'),
+                    SideNavigationBarItem(
+                        icon: Icons.dashboard, label: 'Dashboard'),
                     SideNavigationBarItem(icon: Icons.person, label: 'Profile')
                   ],
                   onTap: (newIndex) {
@@ -433,12 +457,15 @@ void main() {
       await tester.pumpWidget(materialApp);
 
       expect(
-          ((tester.widget(find.widgetWithText(ListTile, 'Dashboard')) as ListTile).title as Text)
+          ((tester.widget(find.widgetWithText(ListTile, 'Dashboard'))
+                      as ListTile)
+                  .title as Text)
               .style
               ?.color,
           isNot(equals(Colors.red)));
       expect(
-          ((tester.widget(find.widgetWithText(ListTile, 'Profile')) as ListTile).title as Text)
+          ((tester.widget(find.widgetWithText(ListTile, 'Profile')) as ListTile)
+                  .title as Text)
               .style
               ?.color,
           isNot(equals(Colors.red)));
@@ -465,7 +492,8 @@ void main() {
                 SideNavigationBar(
                   selectedIndex: selectedIndex,
                   items: const <SideNavigationBarItem>[
-                    SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard'),
+                    SideNavigationBarItem(
+                        icon: Icons.dashboard, label: 'Dashboard'),
                     SideNavigationBarItem(icon: Icons.person, label: 'Profile')
                   ],
                   onTap: (newIndex) {
@@ -492,14 +520,16 @@ void main() {
       await tester.pumpWidget(materialApp);
 
       // Check shrinkIcon
-      expect((tester.widget(find.byIcon(Icons.arrow_left)) as Icon).color, exShrinkColor);
+      expect((tester.widget(find.byIcon(Icons.arrow_left)) as Icon).color,
+          exShrinkColor);
 
       // Collapse
       await tester.tap(find.widgetWithIcon(IconButton, Icons.arrow_left));
       await tester.pumpAndSettle();
 
       // Check expandIcon
-      expect((tester.widget(find.byIcon(Icons.arrow_right)) as Icon).color, exExpandColor);
+      expect((tester.widget(find.byIcon(Icons.arrow_right)) as Icon).color,
+          exExpandColor);
     });
 
     testWidgets('Passing custom divider theme', (WidgetTester tester) async {
@@ -521,7 +551,8 @@ void main() {
                 SideNavigationBar(
                   selectedIndex: selectedIndex,
                   items: const <SideNavigationBarItem>[
-                    SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard'),
+                    SideNavigationBarItem(
+                        icon: Icons.dashboard, label: 'Dashboard'),
                     SideNavigationBarItem(icon: Icons.person, label: 'Profile')
                   ],
                   onTap: (newIndex) {
@@ -555,7 +586,11 @@ void main() {
       await tester.pumpWidget(materialApp);
 
       expect(
-          ((((tester.widget(find.byType(Container).at(0)) as Container).decoration as BoxDecoration).border as Border).right).color,
+          ((((tester.widget(find.byType(Container).at(0)) as Container)
+                          .decoration as BoxDecoration)
+                      .border as Border)
+                  .right)
+              .color,
           Colors.orange);
     });
   });

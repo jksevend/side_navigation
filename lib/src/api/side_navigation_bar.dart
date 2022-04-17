@@ -177,7 +177,8 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
         .asMap()
         .entries
         .map<SideNavigationBarItemWidget>(
-            (MapEntry<int, SideNavigationBarItem> entry) => SideNavigationBarItemWidget(
+            (MapEntry<int, SideNavigationBarItem> entry) =>
+                SideNavigationBarItemWidget(
                   itemData: entry.value,
                   onTap: widget.onTap,
                   itemTheme: theme.itemTheme,
@@ -225,7 +226,8 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
   Widget _evaluateTogglerWidget() {
     // We dont want that
     if (!widget.expandable && widget.toggler != null) {
-      throw StateError('SideNavigationBar is not expandable but a SideBarToggler is given.');
+      throw StateError(
+          'SideNavigationBar is not expandable but a SideBarToggler is given.');
     }
 
     // Toggler is not needed if the bar is not expandable

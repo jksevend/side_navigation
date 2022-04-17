@@ -84,10 +84,12 @@ class SideNavigationBarTogglerTheme {
   /// If nothing or null is passed it defaults to native brightness colors
   final Color? shrinkIconColor;
 
-  const SideNavigationBarTogglerTheme({this.expandIconColor, this.shrinkIconColor});
+  const SideNavigationBarTogglerTheme(
+      {this.expandIconColor, this.shrinkIconColor});
 
   /// Default theme
-  factory SideNavigationBarTogglerTheme.standard() => const SideNavigationBarTogglerTheme(
+  factory SideNavigationBarTogglerTheme.standard() =>
+      const SideNavigationBarTogglerTheme(
         // Brightness dependant
         expandIconColor: null,
         shrinkIconColor: null,
@@ -136,7 +138,8 @@ class SideNavigationBarDividerTheme {
   });
 
   /// Returns default values
-  factory SideNavigationBarDividerTheme.standard() => const SideNavigationBarDividerTheme(
+  factory SideNavigationBarDividerTheme.standard() =>
+      const SideNavigationBarDividerTheme(
         showHeaderDivider: true,
         headerDividerColor: null,
         headerDividerThickness: null,
