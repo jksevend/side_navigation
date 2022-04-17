@@ -31,3 +31,6 @@
 * Finally, some better structured tests
 * Styling of item text and icons
 * More examples in ```README.md```
+
+## 0.0.9
+* Adding header and footer example to ```README.md```

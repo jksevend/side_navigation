@@ -22,7 +22,7 @@ This package provides support to navigate on your app. It was inspired from both
 First add the dependency into your ```pubspec.yaml```:
 ```
 dependencies:
-    side_navigation: ^0.0.7
+    side_navigation: ^0.0.9
 ```
 
 **OR**
@@ -117,6 +117,72 @@ The usage of a header or footer component are completely optional. However you c
 
 Example:
 ```
+class MainView extends StatefulWidget {
+  const MainView({Key? key}) : super(key: key);
+
+  @override
+  _MainViewState createState() => _MainViewState();
+}
+
+class _MainViewState extends State<MainView> {
+  List<Widget> views = const [
+    Center(
+      child: Text('Dashboard'),
+    ),
+    Center(
+      child: Text('Account'),
+    ),
+    Center(
+      child: Text('Settings'),
+    ),
+  ];
+  int selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Row(
+        children: [
+          SideNavigationBar(
+            header: SideNavigationBarHeader(
+              image: CircleAvatar(
+                child: Icon(Icons.account_balance),
+              ),
+              title: Text('Title widget'),
+              subtitle: Text('Subtitle widget')
+            ),
+            footer: SideNavigationBarFooter(
+              label: Text('Footer label')
+            ),
+            selectedIndex: selectedIndex,
+            items: const [
+              SideNavigationBarItem(
+                icon: Icons.dashboard,
+                label: 'Dashboard',
+              ),
+              SideNavigationBarItem(
+                icon: Icons.person,
+                label: 'Account',
+              ),
+              SideNavigationBarItem(
+                icon: Icons.settings,
+                label: 'Settings',
+              ),
+            ],
+            onTap: (index) {
+              setState(() {
+                selectedIndex = index;
+              });
+            },
+          ),
+          Expanded(
+            child: views.elementAt(selectedIndex),
+          )
+        ],
+      ),
+    );
+  }
+}
 ```
 ### Using custom styles
 It is possible to style some components or pass configuration data to the bar through the usage of the ```SideNavigationBarTheme```. By default ```SideNavigationBarTheme.standard()``` is used.
