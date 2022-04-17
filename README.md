@@ -10,10 +10,9 @@ This package provides support to navigate on your app. It was inspired from both
 - [Getting started](#getting-started)
 - [Usage](#usage)
   * [Minimal Example](#minimal-example)
-  * [``SideNavigationBar`` Fields](#sidenavigationbar-fields)
-  * [``SideNavigationBarTheme`` Fields](#sidenavigationbartheme-fields)
-    * [``ItemTheme`` fields](#itemtheme-fields)
-    * [``TogglerTheme`` fields](#togglertheme-fields)
+  * [Using Header and Footer](#using-header-and-footer)
+  * [Using custom styles](#using-custom-styles)
+  * [Using Toggler](#using-toggler)
 - [Showcase](#showcase)
 - [Future Updates](#future-updates)
 - [Bugs, Errors, etc](#bugs-errors-etc)
@@ -112,38 +111,186 @@ class _MainViewState extends State<MainView> {
   }
 }
 ```
+### Using Header and Footer
+The usage of a header or footer component are completely optional. However you can either use both of them or just one by itself. This example will provide the usage of both simultaneously.
 
-### ``SideNavigationBar`` Fields
-Apart from the fields you saw in the minimal example above there exist following more fields:
 
-| Field | Description |
-| --- | ----------- |
-| ``header`` | A ``SideNavigationBarHeader`` displayed above the items |
-| ``footer`` | A ``SideNavigationBarFooter`` displayed below the items and above ``toggler`` |
-| ``toggler`` | A ``SideBarToggler`` to toggle the bars state |
-| ``theme`` | ``SideBarNavigationBarTheme`` provides customizations. Default is ``SideNavigationBarTheme.standard()`` |
-| ``expandable`` | Whether the bar should be expandable at all. If this is ``false`` no ``toggler`` will be displayed. Default ``true`` |
-| ``initiallyExpanded`` | If the bar should be expanded on startup. Default ``true ``|
+Example:
+```
+```
+### Using custom styles
+It is possible to style some components or pass configuration data to the bar through the usage of the ```SideNavigationBarTheme```. By default ```SideNavigationBarTheme.standard()``` is used.
 
-### ``SideNavigationBarTheme`` Fields
-| Field | Description |
-| --- | ----------- |
-| ``backgroundColor`` | The color of the bar. Defaults to parent containers color |
-| ``itemTheme`` | Item style customizations. Defaults to ``ItemTheme.standard()`` |
-| ``togglerTheme`` | Toggler style customizations. Defaults to ``TogglerTheme.standard()`` |
-| ``showHeaderDivider`` | Show divider between header and items. Default ``true`` |
-| ``showMainDivider`` | Show divider between bar and main content. Default ``true`` |
-| ``showFooterDivider`` | Show divider between items and footer. Default ``true`` |
-#### ``ItemTheme`` Fields
-| Field      | Description |
-| ----------- | ----------- |
-| ``selectedItemColor``      | Color of ``SideNavigationBarItem.icon`` and ``SideNavigationBarItem.label`` when selected. Default is native brightness color      |
-| ``unselectedItemColor``   | Color of ``SideNavigationBarItem.icon`` and ``SideNavigationBarItem.label`` when not selected. Default is native brightness color        |
-#### ``TogglerTheme`` Fields
-| Field      | Description |
-| ----------- | ----------- |
-| ``expandIconColor``      | Color of ``SideBarToggler.expandIcon`` when bar is shrinked. Default is native brightness color       |
-| ``shrinkIconColor``   | Color of ``SideBarToggler.shrinkIcon`` when bar is expanded. Default is native brightness color       |
+If you want to create your own theme just use the ```SideNavigationBarTheme``` constructor. You can pass a background color to it and even other themes like ```SideNavigationBarItemTheme``` and ```SideNavigationBarTogglerTheme``` which both also have a ```standard()``` factory constructor.
+
+Example of ```SideNavigationBarTheme```:
+
+```
+class MainView extends StatefulWidget {
+  const MainView({Key? key}) : super(key: key);
+
+  @override
+  _MainViewState createState() => _MainViewState();
+}
+
+class _MainViewState extends State<MainView> {
+  List<Widget> views = const [
+    Center(
+      child: Text('Dashboard'),
+    ),
+    Center(
+      child: Text('Account'),
+    ),
+    Center(
+      child: Text('Settings'),
+    ),
+  ];
+  int selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Row(
+        children: [
+          SideNavigationBar(
+            selectedIndex: selectedIndex,
+            items: const [
+              SideNavigationBarItem(
+                icon: Icons.dashboard,
+                label: 'Dashboard',
+              ),
+              SideNavigationBarItem(
+                icon: Icons.person,
+                label: 'Account',
+              ),
+              SideNavigationBarItem(
+                icon: Icons.settings,
+                label: 'Settings',
+              ),
+            ],
+            onTap: (index) {
+              setState(() {
+                selectedIndex = index;
+              });
+            },
+            // Change the background color and disabled header/footer dividers
+            // Make use of standard() constructor for other themes
+            theme: SideNavigationBarTheme(
+              backgroundColor: Colors.grey,
+              togglerTheme: SideNavigationBarTogglerTheme.standard(),
+              itemTheme: SideNavigationBarItemTheme.standard(),
+              showFooterDivider: false,
+              showHeaderDivider: false,
+              showMainDivider: true
+            ),
+          ),
+          Expanded(
+            child: views.elementAt(selectedIndex),
+          )
+        ],
+      ),
+    );
+  }
+}
+```
+
+Example of ```SideNavigationBarTheme``` with ```SideNavigationBarItemTheme```:
+> **IMPORTANT**: Note that passing a custom ```labelTextStyle``` with a color won't work because the values will be overridden
+```
+... same as in example above
+theme: SideNavigationBarTheme(
+                      itemTheme: const SideNavigationBarItemTheme(
+                        unselectedItemColor: Colors.black,
+                        selectedItemColor: Colors.yellow,
+                        iconSize: 32.5,
+                        labelTextStyle: TextStyle(
+                          fontSize: 20,
+                          // !! Won't work !! Custom text style colors gets overridden
+                          // by unselectedItemColor and selectedItemColor  
+                          color: Colors.black
+                        )
+                      ),
+                      togglerTheme: SideNavigationBarTogglerTheme.standard(),
+                      showMainDivider: true,
+                      showHeaderDivider: true,
+                      showFooterDivider: true),
+                )
+...
+```
+
+### Using Toggler
+If you want to use custom icons for toggling the bar or provide a function to perform tasks after tapping the toggle you can use the ```SideNavigationBarToggler```.
+
+The icons for collapsing the bar default to ```Icons.arrow_left``` and ```Icons.arrow_right```.
+
+Example:
+
+```
+class MainView extends StatefulWidget {
+  const MainView({Key? key}) : super(key: key);
+
+  @override
+  _MainViewState createState() => _MainViewState();
+}
+
+class _MainViewState extends State<MainView> {
+  List<Widget> views = const [
+    Center(
+      child: Text('Dashboard'),
+    ),
+    Center(
+      child: Text('Account'),
+    ),
+    Center(
+      child: Text('Settings'),
+    ),
+  ];
+  int selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Row(
+        children: [
+          SideNavigationBar(
+            selectedIndex: selectedIndex,
+            items: const [
+              SideNavigationBarItem(
+                icon: Icons.dashboard,
+                label: 'Dashboard',
+              ),
+              SideNavigationBarItem(
+                icon: Icons.person,
+                label: 'Account',
+              ),
+              SideNavigationBarItem(
+                icon: Icons.settings,
+                label: 'Settings',
+              ),
+            ],
+            onTap: (index) {
+              setState(() {
+                selectedIndex = index;
+              });
+            },
+            toggler: SideBarToggler(
+                expandIcon: Icons.keyboard_arrow_left,
+                shrinkIcon: Icons.keyboard_arrow_right,
+                onToggle: () {
+                  print('Toggle');
+                }),
+          ),
+          Expanded(
+            child: views.elementAt(selectedIndex),
+          )
+        ],
+      ),
+    );
+  }
+}
+```
+
+
 ## Showcase
 **Desktop:**
 

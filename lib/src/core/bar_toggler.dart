@@ -13,7 +13,7 @@ class SideBarTogglerWidget extends StatefulWidget {
   final VoidCallback onToggle;
 
   /// Style customizations
-  final TogglerTheme togglerTheme;
+  final SideNavigationBarTogglerTheme togglerTheme;
 
   const SideBarTogglerWidget({
     Key? key,

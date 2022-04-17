@@ -16,7 +16,7 @@ class SideNavigationBarItemWidget extends StatefulWidget {
   final int index;
 
   /// Style customizations
-  final ItemTheme itemTheme;
+  final SideNavigationBarItemTheme itemTheme;
 
   /// The current [expanded] state of [SideNavigationBar]
   final bool expanded;
@@ -47,6 +47,8 @@ class _SideNavigationBarItemWidgetState
         SideNavigationBar.of(context).widget.selectedIndex;
     // Check if this tile is selected
     final bool isSelected = _isTileSelected(barItems, selectedIndex);
+    // The color of the icon and text to be displayed
+    final Color? currentColor = _evaluateColor(context, isSelected);
 
     /// Return a basic list-tile for now
     return Tooltip(
@@ -56,13 +58,12 @@ class _SideNavigationBarItemWidgetState
           ? ListTile(
               leading: Icon(
                 widget.itemData.icon,
-                color: _evaluateColor(isSelected),
+                color: currentColor,
+                size: widget.itemTheme.iconSize,
               ),
               title: Text(
                 widget.itemData.label,
-                style: TextStyle(
-                  color: _evaluateColor(isSelected),
-                ),
+                style: _evaluateTextStyle(currentColor),
               ),
               onTap: () {
                 widget.onTap(widget.index);
@@ -71,7 +72,8 @@ class _SideNavigationBarItemWidgetState
           : IconButton(
               icon: Icon(
                 widget.itemData.icon,
-                color: _evaluateColor(isSelected),
+                color: currentColor,
+                size: widget.itemTheme.iconSize,
               ),
               onPressed: () {
                 widget.onTap(widget.index);
@@ -97,9 +99,25 @@ class _SideNavigationBarItemWidgetState
   /// Check if this item [isSelected] and return the passed [widget.selectedColor]
   /// If it is not selected return either [Colors.white] or [Colors.grey] based on the
   /// [Brightness]
-  Color? _evaluateColor(final bool isSelected) {
+  Color? _evaluateColor(final BuildContext context, final bool isSelected) {
+    final Brightness brightness = Theme.of(context).brightness;
     return isSelected
-        ? widget.itemTheme.selectedItemColor
-        : widget.itemTheme.unselectedItemColor;
+        // If selectedItemColor is null we pass the default
+        ? widget.itemTheme.selectedItemColor ?? SideNavigationBarItemTheme.defaultSelectedItemColor
+        // If unselectedItemColor is null we evaluate current brightness and return either grey or white
+        : widget.itemTheme.unselectedItemColor ?? (brightness == Brightness.light ? Colors.grey : Colors.white);
+  }
+
+  /// Evaluate what text style to use for an item based on a
+  /// previously [evaluatedColor] based whether this item is selected
+  TextStyle? _evaluateTextStyle(final Color? evaluatedColor) {
+    // No custom styled passed via theme - using default empty theme with color
+    if (widget.itemTheme.labelTextStyle == null) {
+      return TextStyle(
+        color: evaluatedColor,
+      );
+    }
+    // Return custom text style overridden with evaluated color
+    return widget.itemTheme.labelTextStyle!.apply(color: evaluatedColor);
   }
 }

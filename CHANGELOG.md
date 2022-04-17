@@ -25,3 +25,9 @@
 * ``SideNavigationBarHeader`` and ``SideNavigationBarFooter`` are now optional
 * ``SideNavigationBarTheme`` is now available to customize various components
 * To provide a way to listen to the state change of the bar a ``SideBarToggler`` is introduced.
+
+## 0.0.8
+* Renaming of ```ItemTheme``` and ```TogglerTheme```
+* Finally, some better structured tests
+* Styling of item text and icons
+* More examples in ```README.md```
