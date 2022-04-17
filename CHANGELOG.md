@@ -34,3 +34,7 @@
 
 ## 0.0.9
 * Adding header and footer example to ```README.md```
+
+## 1.0.0
+* Major release
+* Fixing of release 0.0.9 (published without changes)
