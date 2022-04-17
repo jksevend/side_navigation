@@ -285,9 +285,7 @@ void main() {
                       backgroundColor: expectedColor,
                       itemTheme: SideNavigationBarItemTheme.standard(),
                       togglerTheme: SideNavigationBarTogglerTheme.standard(),
-                      showMainDivider: true,
-                      showHeaderDivider: true,
-                      showFooterDivider: true),
+                      dividerTheme: SideNavigationBarDividerTheme.standard()),
                 ),
                 Expanded(child: views.elementAt(selectedIndex))
               ],
@@ -336,17 +334,16 @@ void main() {
                     });
                   },
                   theme: SideNavigationBarTheme(
-                      itemTheme: SideNavigationBarItemTheme(
-                          unselectedItemColor: exUnselectedColor,
-                          selectedItemColor: exSelectedColor,
-                          iconSize: exIconSize,
-                          labelTextStyle: TextStyle(
-                            fontSize: exFontSize,
-                          )),
-                      togglerTheme: SideNavigationBarTogglerTheme.standard(),
-                      showMainDivider: true,
-                      showHeaderDivider: true,
-                      showFooterDivider: true),
+                    itemTheme: SideNavigationBarItemTheme(
+                        unselectedItemColor: exUnselectedColor,
+                        selectedItemColor: exSelectedColor,
+                        iconSize: exIconSize,
+                        labelTextStyle: TextStyle(
+                          fontSize: exFontSize,
+                        )),
+                    togglerTheme: SideNavigationBarTogglerTheme.standard(),
+                    dividerTheme: SideNavigationBarDividerTheme.standard(),
+                  ),
                 ),
                 Expanded(child: views.elementAt(selectedIndex))
               ],
@@ -417,15 +414,14 @@ void main() {
                     });
                   },
                   theme: SideNavigationBarTheme(
-                      itemTheme: const SideNavigationBarItemTheme(
-                          labelTextStyle: TextStyle(
-                            fontSize: 20,
-                            color: Colors.red,
-                          )),
-                      togglerTheme: SideNavigationBarTogglerTheme.standard(),
-                      showMainDivider: true,
-                      showHeaderDivider: true,
-                      showFooterDivider: true),
+                    itemTheme: const SideNavigationBarItemTheme(
+                        labelTextStyle: TextStyle(
+                      fontSize: 20,
+                      color: Colors.red,
+                    )),
+                    togglerTheme: SideNavigationBarTogglerTheme.standard(),
+                    dividerTheme: SideNavigationBarDividerTheme.standard(),
+                  ),
                 ),
                 Expanded(child: views.elementAt(selectedIndex))
               ],
@@ -446,6 +442,121 @@ void main() {
               .style
               ?.color,
           isNot(equals(Colors.red)));
+    });
+
+    testWidgets('Passing custom toggler theme', (WidgetTester tester) async {
+      List<Widget> views = const [
+        Center(
+          child: Text('Dashboard page'),
+        ),
+        Center(
+          child: Text('Profile page'),
+        )
+      ];
+      int selectedIndex = 0;
+      Color exExpandColor = Colors.red;
+      Color exShrinkColor = Colors.yellow;
+      MaterialApp materialApp = MaterialApp(
+        // Allow setting of state for tests
+        home: StatefulBuilder(builder: (context, setState) {
+          return Scaffold(
+            body: Row(
+              children: [
+                SideNavigationBar(
+                  selectedIndex: selectedIndex,
+                  items: const <SideNavigationBarItem>[
+                    SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard'),
+                    SideNavigationBarItem(icon: Icons.person, label: 'Profile')
+                  ],
+                  onTap: (newIndex) {
+                    setState(() {
+                      selectedIndex = newIndex;
+                    });
+                  },
+                  theme: SideNavigationBarTheme(
+                    itemTheme: SideNavigationBarItemTheme.standard(),
+                    togglerTheme: SideNavigationBarTogglerTheme(
+                      expandIconColor: exExpandColor,
+                      shrinkIconColor: exShrinkColor,
+                    ),
+                    dividerTheme: SideNavigationBarDividerTheme.standard(),
+                  ),
+                ),
+                Expanded(child: views.elementAt(selectedIndex))
+              ],
+            ),
+          );
+        }),
+      );
+
+      await tester.pumpWidget(materialApp);
+
+      // Check shrinkIcon
+      expect((tester.widget(find.byIcon(Icons.arrow_left)) as Icon).color, exShrinkColor);
+
+      // Collapse
+      await tester.tap(find.widgetWithIcon(IconButton, Icons.arrow_left));
+      await tester.pumpAndSettle();
+
+      // Check expandIcon
+      expect((tester.widget(find.byIcon(Icons.arrow_right)) as Icon).color, exExpandColor);
+    });
+
+    testWidgets('Passing custom divider theme', (WidgetTester tester) async {
+      List<Widget> views = const [
+        Center(
+          child: Text('Dashboard page'),
+        ),
+        Center(
+          child: Text('Profile page'),
+        )
+      ];
+      int selectedIndex = 0;
+      MaterialApp materialApp = MaterialApp(
+        // Allow setting of state for tests
+        home: StatefulBuilder(builder: (context, setState) {
+          return Scaffold(
+            body: Row(
+              children: [
+                SideNavigationBar(
+                  selectedIndex: selectedIndex,
+                  items: const <SideNavigationBarItem>[
+                    SideNavigationBarItem(icon: Icons.dashboard, label: 'Dashboard'),
+                    SideNavigationBarItem(icon: Icons.person, label: 'Profile')
+                  ],
+                  onTap: (newIndex) {
+                    setState(() {
+                      selectedIndex = newIndex;
+                    });
+                  },
+                  theme: SideNavigationBarTheme(
+                    itemTheme: SideNavigationBarItemTheme.standard(),
+                    togglerTheme: SideNavigationBarTogglerTheme.standard(),
+                    dividerTheme: const SideNavigationBarDividerTheme(
+                      showFooterDivider: true,
+                      showHeaderDivider: true,
+                      showMainDivider: true,
+                      footerDividerColor: Colors.red,
+                      footerDividerThickness: 2,
+                      mainDividerColor: Colors.orange,
+                      mainDividerThickness: 3,
+                      headerDividerColor: Colors.green,
+                      headerDividerThickness: 4,
+                    ),
+                  ),
+                ),
+                Expanded(child: views.elementAt(selectedIndex))
+              ],
+            ),
+          );
+        }),
+      );
+
+      await tester.pumpWidget(materialApp);
+
+      expect(
+          ((((tester.widget(find.byType(Container).at(0)) as Container).decoration as BoxDecoration).border as Border).right).color,
+          Colors.orange);
     });
   });
 }

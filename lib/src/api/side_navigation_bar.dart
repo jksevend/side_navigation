@@ -177,8 +177,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
         .asMap()
         .entries
         .map<SideNavigationBarItemWidget>(
-            (MapEntry<int, SideNavigationBarItem> entry) =>
-                SideNavigationBarItemWidget(
+            (MapEntry<int, SideNavigationBarItem> entry) => SideNavigationBarItemWidget(
                   itemData: entry.value,
                   onTap: widget.onTap,
                   itemTheme: theme.itemTheme,
@@ -226,8 +225,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
   Widget _evaluateTogglerWidget() {
     // We dont want that
     if (!widget.expandable && widget.toggler != null) {
-      throw StateError(
-          'SideNavigationBar is not expandable but a SideBarToggler is given.');
+      throw StateError('SideNavigationBar is not expandable but a SideBarToggler is given.');
     }
 
     // Toggler is not needed if the bar is not expandable
@@ -259,15 +257,16 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
   ///
   /// Influenced by [SideNavigationBarTheme.showMainDivider]
   Border? _evaluateMainDivider() {
-    if (!theme.showMainDivider) {
+    if (!theme.dividerTheme.showMainDivider) {
       return null;
     }
     return Border(
       right: BorderSide(
-        width: 0.5,
-        color: MediaQuery.of(context).platformBrightness == Brightness.light
-            ? Colors.grey[700]!
-            : Colors.white,
+        width: theme.dividerTheme.mainDividerThickness ?? 0.5,
+        color: theme.dividerTheme.mainDividerColor ??
+            (MediaQuery.of(context).platformBrightness == Brightness.light
+                ? Colors.grey[700]!
+                : Colors.white),
       ),
     );
   }
@@ -278,14 +277,17 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
   /// Influenced by [SideNavigationBarTheme.showHeaderDivider]
   /// If no [SideNavigationBarHeader] was provided no Divider is returned
   Widget _evaluateHeaderDivider() {
-    if (!theme.showHeaderDivider) {
+    if (!theme.dividerTheme.showHeaderDivider) {
       return Container();
     }
 
     if (widget.header == null) {
       return Container();
     }
-    return const Divider();
+    return Divider(
+      color: theme.dividerTheme.headerDividerColor,
+      thickness: theme.dividerTheme.headerDividerThickness,
+    );
   }
 
   /// Determines if a [Divider] should be displayed between the [SideNavigationBarFooterWidget] and
@@ -295,7 +297,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
   /// If no [SideNavigationBarFooter] was provided no Divider is returned
   /// If [SideNavigationBar.expandable] is false no Divider is returned
   Widget _evaluateFooterDivider() {
-    if (!theme.showFooterDivider) {
+    if (!theme.dividerTheme.showFooterDivider) {
       return Container();
     }
 
@@ -307,6 +309,9 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
       return Container();
     }
 
-    return const Divider();
+    return Divider(
+      color: theme.dividerTheme.footerDividerColor,
+      thickness: theme.dividerTheme.footerDividerThickness,
+    );
   }
 }

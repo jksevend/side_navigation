@@ -245,9 +245,7 @@ class _MainViewState extends State<MainView> {
               backgroundColor: Colors.grey,
               togglerTheme: SideNavigationBarTogglerTheme.standard(),
               itemTheme: SideNavigationBarItemTheme.standard(),
-              showFooterDivider: false,
-              showHeaderDivider: false,
-              showMainDivider: true
+              dividerTheme: SideNavigationBarDividerTheme.standard(),
             ),
           ),
           Expanded(
@@ -277,9 +275,8 @@ theme: SideNavigationBarTheme(
                         )
                       ),
                       togglerTheme: SideNavigationBarTogglerTheme.standard(),
-                      showMainDivider: true,
-                      showHeaderDivider: true,
-                      showFooterDivider: true),
+                      dividerTheme: SideNavigationBarDividerTheme.standard(),
+                      ),
                 )
 ...
 ```

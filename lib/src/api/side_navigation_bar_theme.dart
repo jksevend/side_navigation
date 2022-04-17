@@ -13,21 +13,13 @@ class SideNavigationBarTheme {
   /// The theme of a [SideBarToggler]
   final SideNavigationBarTogglerTheme togglerTheme;
 
-  /// Whether to show a [Divider] between [SideNavigationBarHeader] and [SideNavigationBar.items]
-  final bool showHeaderDivider;
-
-  /// Whether to show a [Divider] between [SideNavigationBar] and the content in the [Expanded]
-  final bool showMainDivider;
-
-  /// Whether to show a [Divider] between the [SideNavigationBar.items] and [SideNavigationBarFooter]
-  final bool showFooterDivider;
+  /// The theme of [Divider]s
+  final SideNavigationBarDividerTheme dividerTheme;
 
   const SideNavigationBarTheme({
     required this.itemTheme,
     required this.togglerTheme,
-    required this.showHeaderDivider,
-    required this.showMainDivider,
-    required this.showFooterDivider,
+    required this.dividerTheme,
     this.backgroundColor,
   });
 
@@ -37,9 +29,7 @@ class SideNavigationBarTheme {
         backgroundColor: null,
         itemTheme: SideNavigationBarItemTheme.standard(),
         togglerTheme: SideNavigationBarTogglerTheme.standard(),
-        showHeaderDivider: true,
-        showMainDivider: true,
-        showFooterDivider: true,
+        dividerTheme: SideNavigationBarDividerTheme.standard(),
       );
 }
 
@@ -94,14 +84,67 @@ class SideNavigationBarTogglerTheme {
   /// If nothing or null is passed it defaults to native brightness colors
   final Color? shrinkIconColor;
 
-  const SideNavigationBarTogglerTheme(
-      {this.expandIconColor, this.shrinkIconColor});
+  const SideNavigationBarTogglerTheme({this.expandIconColor, this.shrinkIconColor});
 
   /// Default theme
-  factory SideNavigationBarTogglerTheme.standard() =>
-      const SideNavigationBarTogglerTheme(
+  factory SideNavigationBarTogglerTheme.standard() => const SideNavigationBarTogglerTheme(
         // Brightness dependant
         expandIconColor: null,
         shrinkIconColor: null,
+      );
+}
+
+class SideNavigationBarDividerTheme {
+  /// Whether to show a [Divider] between [SideNavigationBarHeader] and [SideNavigationBar.items]
+  final bool showHeaderDivider;
+
+  /// The color of the header divider
+  final Color? headerDividerColor;
+
+  /// The thickness of the header divider
+  final double? headerDividerThickness;
+
+  /// Whether to show a [Divider] between [SideNavigationBar] and the content in the [Expanded]
+  final bool showMainDivider;
+
+  /// The color of the main divider
+  final Color? mainDividerColor;
+
+  /// The thickness of the main divider
+  final double? mainDividerThickness;
+
+  /// Whether to show a [Divider] between the [SideNavigationBar.items] and [SideNavigationBarFooter]
+  final bool showFooterDivider;
+
+  /// The color of the footer divider
+  final Color? footerDividerColor;
+
+  /// The thickness of the footer divider
+  final double? footerDividerThickness;
+
+  /// Constructor
+  const SideNavigationBarDividerTheme({
+    required this.showHeaderDivider,
+    required this.showMainDivider,
+    required this.showFooterDivider,
+    this.headerDividerColor,
+    this.headerDividerThickness,
+    this.mainDividerColor,
+    this.mainDividerThickness,
+    this.footerDividerColor,
+    this.footerDividerThickness,
+  });
+
+  /// Returns default values
+  factory SideNavigationBarDividerTheme.standard() => const SideNavigationBarDividerTheme(
+        showHeaderDivider: true,
+        headerDividerColor: null,
+        headerDividerThickness: null,
+        showMainDivider: true,
+        mainDividerColor: null,
+        mainDividerThickness: null,
+        showFooterDivider: true,
+        footerDividerColor: null,
+        footerDividerThickness: null,
       );
 }
