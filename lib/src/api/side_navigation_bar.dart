@@ -85,8 +85,8 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
   /// Whether this bar is in its expanded state
   late bool _expanded;
 
-  /// Chooses [SideNavigationBarTheme.standard] or [widget.theme]
-  late SideNavigationBarTheme theme;
+  /// Chooses [SideNavigationBarTheme.standard] or [widget._theme]
+  late SideNavigationBarTheme _theme;
 
   @override
   void initState() {
@@ -98,7 +98,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: theme.backgroundColor,
+        color: _theme.backgroundColor,
         border: _evaluateMainDivider(),
       ),
       child: AnimatedSize(
@@ -146,7 +146,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
     widget.toggler?.onToggle?.call();
   }
 
-  /// Evaluate whether [theme] should be the [SideNavigationBarTheme.standard] or provided
+  /// Evaluate if [_theme] should be [SideNavigationBarTheme.standard] or provided
   /// [SideNavigationBar.theme].
   ///
   /// Also ,it sets the [_width] value of the container which is animated
@@ -154,7 +154,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
   /// if the bar should be [initiallyExpanded] (Default true)
   void _evaluateInitialStructure() {
     // Evaluate the theme
-    theme = widget.theme ?? SideNavigationBarTheme.standard();
+    _theme = widget.theme ?? SideNavigationBarTheme.standard();
     // If the bar need to be expandable
     _evaluateInitiallyExpanded();
   }
@@ -181,7 +181,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
                 SideNavigationBarItemWidget(
                   itemData: entry.value,
                   onTap: widget.onTap,
-                  itemTheme: theme.itemTheme,
+                  itemTheme: _theme.itemTheme,
                   index: entry.key,
                   expanded: _expanded,
                 ))
@@ -238,7 +238,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
     // Toggler is provided, use it
     if (widget.toggler != null) {
       return SideBarTogglerWidget(
-        togglerTheme: theme.togglerTheme,
+        togglerTheme: _theme.togglerTheme,
         togglerData: widget.toggler!,
         expanded: _expanded,
         onToggle: () => _toggle(),
@@ -247,7 +247,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
       // Create the default toggler and use it
       const SideBarToggler barToggler = SideBarToggler();
       return SideBarTogglerWidget(
-        togglerTheme: theme.togglerTheme,
+        togglerTheme: _theme.togglerTheme,
         togglerData: barToggler,
         expanded: _expanded,
         onToggle: () => _toggle(),
@@ -259,13 +259,13 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
   ///
   /// Influenced by [SideNavigationBarTheme.showMainDivider]
   Border? _evaluateMainDivider() {
-    if (!theme.dividerTheme.showMainDivider) {
+    if (!_theme.dividerTheme.showMainDivider) {
       return null;
     }
     return Border(
       right: BorderSide(
-        width: theme.dividerTheme.mainDividerThickness ?? 0.5,
-        color: theme.dividerTheme.mainDividerColor ??
+        width: _theme.dividerTheme.mainDividerThickness ?? 0.5,
+        color: _theme.dividerTheme.mainDividerColor ??
             (MediaQuery.of(context).platformBrightness == Brightness.light
                 ? Colors.grey[700]!
                 : Colors.white),
@@ -279,7 +279,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
   /// Influenced by [SideNavigationBarTheme.showHeaderDivider]
   /// If no [SideNavigationBarHeader] was provided no Divider is returned
   Widget _evaluateHeaderDivider() {
-    if (!theme.dividerTheme.showHeaderDivider) {
+    if (!_theme.dividerTheme.showHeaderDivider) {
       return Container();
     }
 
@@ -287,8 +287,8 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
       return Container();
     }
     return Divider(
-      color: theme.dividerTheme.headerDividerColor,
-      thickness: theme.dividerTheme.headerDividerThickness,
+      color: _theme.dividerTheme.headerDividerColor,
+      thickness: _theme.dividerTheme.headerDividerThickness,
     );
   }
 
@@ -299,7 +299,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
   /// If no [SideNavigationBarFooter] was provided no Divider is returned
   /// If [SideNavigationBar.expandable] is false no Divider is returned
   Widget _evaluateFooterDivider() {
-    if (!theme.dividerTheme.showFooterDivider) {
+    if (!_theme.dividerTheme.showFooterDivider) {
       return Container();
     }
 
@@ -312,8 +312,8 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
     }
 
     return Divider(
-      color: theme.dividerTheme.footerDividerColor,
-      thickness: theme.dividerTheme.footerDividerThickness,
+      color: _theme.dividerTheme.footerDividerColor,
+      thickness: _theme.dividerTheme.footerDividerThickness,
     );
   }
 }

@@ -152,114 +152,114 @@ void main() {
       expect(find.text(footerText), findsOneWidget);
       expect(find.byIcon(Icons.account_balance), findsOneWidget);
     });
+  });
 
-    group('State tests', () {
-      testWidgets('Tapping an item displays page', (WidgetTester tester) async {
-        List<Widget> views = const [
-          Center(
-            child: Text('Dashboard page'),
-          ),
-          Center(
-            child: Text('Profile page'),
-          )
-        ];
-        int selectedIndex = 0;
-        String startText = 'Dashboard';
-        String endText = 'Profile';
-        MaterialApp materialApp = MaterialApp(
-          // Allow setting of state for tests
-          home: StatefulBuilder(builder: (context, setState) {
-            return Scaffold(
-              body: Row(
-                children: [
-                  SideNavigationBar(
-                      selectedIndex: selectedIndex,
-                      items: <SideNavigationBarItem>[
-                        SideNavigationBarItem(
-                            icon: Icons.dashboard, label: startText),
-                        SideNavigationBarItem(
-                            icon: Icons.person, label: endText)
-                      ],
-                      onTap: (newIndex) {
-                        setState(() {
-                          selectedIndex = newIndex;
-                        });
-                      }),
-                  Expanded(child: views.elementAt(selectedIndex))
-                ],
-              ),
-            );
-          }),
-        );
+  group('State tests', () {
+    testWidgets('Tapping an item displays page', (WidgetTester tester) async {
+      List<Widget> views = const [
+        Center(
+          child: Text('Dashboard page'),
+        ),
+        Center(
+          child: Text('Profile page'),
+        )
+      ];
+      int selectedIndex = 0;
+      String startText = 'Dashboard';
+      String endText = 'Profile';
+      MaterialApp materialApp = MaterialApp(
+        // Allow setting of state for tests
+        home: StatefulBuilder(builder: (context, setState) {
+          return Scaffold(
+            body: Row(
+              children: [
+                SideNavigationBar(
+                    selectedIndex: selectedIndex,
+                    items: <SideNavigationBarItem>[
+                      SideNavigationBarItem(
+                          icon: Icons.dashboard, label: startText),
+                      SideNavigationBarItem(
+                          icon: Icons.person, label: endText)
+                    ],
+                    onTap: (newIndex) {
+                      setState(() {
+                        selectedIndex = newIndex;
+                      });
+                    }),
+                Expanded(child: views.elementAt(selectedIndex))
+              ],
+            ),
+          );
+        }),
+      );
 
-        await tester.pumpWidget(materialApp);
+      await tester.pumpWidget(materialApp);
 
-        // Check initial state
-        expect(find.text(startText), findsOneWidget);
-        expect(find.byIcon(Icons.dashboard), findsOneWidget);
-        expect(find.text('Dashboard page'), findsOneWidget);
+      // Check initial state
+      expect(find.text(startText), findsOneWidget);
+      expect(find.byIcon(Icons.dashboard), findsOneWidget);
+      expect(find.text('Dashboard page'), findsOneWidget);
 
-        await tester.tap(find.widgetWithText(ListTile, endText));
-        await tester.pumpAndSettle();
+      await tester.tap(find.widgetWithText(ListTile, endText));
+      await tester.pumpAndSettle();
 
-        expect(find.text('Dashboard page'), findsNothing);
-        expect(find.text('Profile page'), findsOneWidget);
-      });
-
-      testWidgets('Toggling the bar changes state',
-          (WidgetTester tester) async {
-        List<Widget> views = const [
-          Center(
-            child: Text('Dashboard page'),
-          ),
-          Center(
-            child: Text('Profile page'),
-          )
-        ];
-        int selectedIndex = 0;
-        String startText = 'Dashboard';
-        String endText = 'Profile';
-        MaterialApp materialApp = MaterialApp(
-          // Allow setting of state for tests
-          home: StatefulBuilder(builder: (context, setState) {
-            return Scaffold(
-              body: Row(
-                children: [
-                  SideNavigationBar(
-                      selectedIndex: selectedIndex,
-                      items: <SideNavigationBarItem>[
-                        SideNavigationBarItem(
-                            icon: Icons.dashboard, label: startText),
-                        SideNavigationBarItem(
-                            icon: Icons.person, label: endText)
-                      ],
-                      onTap: (newIndex) {
-                        setState(() {
-                          selectedIndex = newIndex;
-                        });
-                      }),
-                  Expanded(child: views.elementAt(selectedIndex))
-                ],
-              ),
-            );
-          }),
-        );
-
-        await tester.pumpWidget(materialApp);
-
-        // Check initial state
-        expect(find.text(startText), findsOneWidget);
-        expect(find.byIcon(Icons.dashboard), findsOneWidget);
-        expect(find.text('Dashboard page'), findsOneWidget);
-
-        await tester.tap(find.byIcon(Icons.arrow_left));
-        await tester.pumpAndSettle();
-
-        expect(find.widgetWithText(ListTile, startText), findsNothing);
-        expect(
-            find.widgetWithIcon(IconButton, Icons.dashboard), findsOneWidget);
-      });
+      expect(find.text('Dashboard page'), findsNothing);
+      expect(find.text('Profile page'), findsOneWidget);
     });
+
+    testWidgets('Toggling the bar changes state',
+            (WidgetTester tester) async {
+          List<Widget> views = const [
+            Center(
+              child: Text('Dashboard page'),
+            ),
+            Center(
+              child: Text('Profile page'),
+            )
+          ];
+          int selectedIndex = 0;
+          String startText = 'Dashboard';
+          String endText = 'Profile';
+          MaterialApp materialApp = MaterialApp(
+            // Allow setting of state for tests
+            home: StatefulBuilder(builder: (context, setState) {
+              return Scaffold(
+                body: Row(
+                  children: [
+                    SideNavigationBar(
+                        selectedIndex: selectedIndex,
+                        items: <SideNavigationBarItem>[
+                          SideNavigationBarItem(
+                              icon: Icons.dashboard, label: startText),
+                          SideNavigationBarItem(
+                              icon: Icons.person, label: endText)
+                        ],
+                        onTap: (newIndex) {
+                          setState(() {
+                            selectedIndex = newIndex;
+                          });
+                        }),
+                    Expanded(child: views.elementAt(selectedIndex))
+                  ],
+                ),
+              );
+            }),
+          );
+
+          await tester.pumpWidget(materialApp);
+
+          // Check initial state
+          expect(find.text(startText), findsOneWidget);
+          expect(find.byIcon(Icons.dashboard), findsOneWidget);
+          expect(find.text('Dashboard page'), findsOneWidget);
+
+          await tester.tap(find.byIcon(Icons.arrow_left));
+          await tester.pumpAndSettle();
+
+          expect(find.widgetWithText(ListTile, startText), findsNothing);
+          expect(
+              find.widgetWithIcon(IconButton, Icons.dashboard), findsOneWidget);
+        });
   });
 
   group('Style tests', () {
