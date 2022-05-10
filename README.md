@@ -375,8 +375,9 @@ For phones, I would recommend only using this type of navigation when the device
 Currently, the plan is to add support for
 
 * Choosable position of the toggler
-* Divider more style customizations
-* Maybe let header and footer be normal widget: [Github Issue](https://github.com/jksevend/side_navigation/issues/9)
+* Customize the size animation transition when toggling the bar
+* Item animation when toggling the bar
+
 
 ## Bugs, Errors etc.
 If you find any weird behaviour, bugs or errors please let me know.
