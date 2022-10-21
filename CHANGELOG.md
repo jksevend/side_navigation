@@ -44,3 +44,6 @@
 
 ## 1.0.2
 * More divider style customizations in ```SideNavigationBarDividerTheme```
+
+## 1.0.3
+* Background color of selected and not selected ``SideNavigationBarItem``

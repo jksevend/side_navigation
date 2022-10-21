@@ -22,7 +22,7 @@ This package provides support to navigate on your app. It was inspired from both
 First add the dependency into your ```pubspec.yaml```:
 ```
 dependencies:
-    side_navigation: ^1.0.2
+    side_navigation: ^1.0.3
 ```
 
 **OR**
@@ -375,8 +375,7 @@ For phones, I would recommend only using this type of navigation when the device
 Currently, the plan is to add support for
 
 * Choosable position of the toggler
-* Customize the size animation transition when toggling the bar
-* Item animation when toggling the bar
+* Divide items into sections
 
 
 ## Bugs, Errors etc.
