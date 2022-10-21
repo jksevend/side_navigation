@@ -47,6 +47,12 @@ class SideNavigationBarItemTheme {
   /// on the brightness for [Icon] and [Text]
   final Color? unselectedItemColor;
 
+  /// The background color for an selected [SideNavigationBarItem]
+  final Color? selectedBackgroundColor;
+
+  /// The background color for a non-selected [SideNavigationBarItem]
+  final Color? unselectedBackgroundColor;
+
   /// The size of an [SideNavigationBarItem.icon]
   /// If nothing or null is passed flutter will do the sizing
   final double? iconSize;
@@ -60,6 +66,8 @@ class SideNavigationBarItemTheme {
   const SideNavigationBarItemTheme({
     this.selectedItemColor,
     this.unselectedItemColor,
+    this.selectedBackgroundColor,
+    this.unselectedBackgroundColor,
     this.iconSize,
     this.labelTextStyle,
   });
@@ -71,6 +79,8 @@ class SideNavigationBarItemTheme {
         unselectedItemColor: null,
         iconSize: null,
         labelTextStyle: null,
+        selectedBackgroundColor: null,
+        unselectedBackgroundColor: null,
       );
 }
 

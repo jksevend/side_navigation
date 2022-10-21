@@ -56,6 +56,7 @@ class _SideNavigationBarItemWidgetState
       message: widget.itemData.label,
       child: widget.expanded
           ? ListTile(
+              tileColor: _evaluateBackgroundColor(isSelected),
               leading: Icon(
                 widget.itemData.icon,
                 color: currentColor,
@@ -70,6 +71,7 @@ class _SideNavigationBarItemWidgetState
               },
             )
           : IconButton(
+              color: _evaluateBackgroundColor(isSelected),
               icon: Icon(
                 widget.itemData.icon,
                 color: currentColor,
@@ -108,6 +110,13 @@ class _SideNavigationBarItemWidgetState
         // If unselectedItemColor is null we evaluate current brightness and return either grey or white
         : widget.itemTheme.unselectedItemColor ??
             (brightness == Brightness.light ? Colors.grey : Colors.white);
+  }
+
+  /// Check if item [isSelected] and return appropriate background color
+  Color? _evaluateBackgroundColor(final bool isSelected) {
+    return isSelected
+        ? widget.itemTheme.selectedBackgroundColor
+        : widget.itemTheme.unselectedBackgroundColor;
   }
 
   /// Evaluate what text style to use for an item based on a
