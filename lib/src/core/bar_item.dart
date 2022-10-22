@@ -70,16 +70,24 @@ class _SideNavigationBarItemWidgetState
                 widget.onTap(widget.index);
               },
             )
-          : IconButton(
-              color: _evaluateBackgroundColor(isSelected),
-              icon: Icon(
-                widget.itemData.icon,
-                color: currentColor,
-                size: widget.itemTheme.iconSize,
+          : Material(
+              color: Colors.transparent,
+              child: Ink(
+                decoration: ShapeDecoration(
+                  color: _evaluateBackgroundColor(isSelected),
+                  shape: widget.itemTheme.iconShape,
+                ),
+                child: IconButton(
+                  icon: Icon(
+                    widget.itemData.icon,
+                    color: currentColor,
+                    size: widget.itemTheme.iconSize,
+                  ),
+                  onPressed: () {
+                    widget.onTap(widget.index);
+                  },
+                ),
               ),
-              onPressed: () {
-                widget.onTap(widget.index);
-              },
             ),
     );
   }

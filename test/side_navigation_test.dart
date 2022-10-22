@@ -434,8 +434,8 @@ void main() {
                     });
                   },
                   theme: SideNavigationBarTheme(
-                    itemTheme: const SideNavigationBarItemTheme(
-                        labelTextStyle: TextStyle(
+                    itemTheme: SideNavigationBarItemTheme(
+                        labelTextStyle: const TextStyle(
                       fontSize: 20,
                       color: Colors.red,
                     )),

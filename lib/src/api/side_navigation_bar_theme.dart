@@ -53,6 +53,9 @@ class SideNavigationBarItemTheme {
   /// The background color for a non-selected [SideNavigationBarItem]
   final Color? unselectedBackgroundColor;
 
+  /// The shape for [SideNavigationBarItem.icon] when the [SideNavigationBar] is minimized
+  final ShapeBorder iconShape;
+
   /// The size of an [SideNavigationBarItem.icon]
   /// If nothing or null is passed flutter will do the sizing
   final double? iconSize;
@@ -63,11 +66,12 @@ class SideNavigationBarItemTheme {
   final TextStyle? labelTextStyle;
 
   /// Named Constructor
-  const SideNavigationBarItemTheme({
+  SideNavigationBarItemTheme({
     this.selectedItemColor,
     this.unselectedItemColor,
     this.selectedBackgroundColor,
     this.unselectedBackgroundColor,
+    this.iconShape = const CircleBorder(),
     this.iconSize,
     this.labelTextStyle,
   });
@@ -80,6 +84,7 @@ class SideNavigationBarItemTheme {
         iconSize: null,
         labelTextStyle: null,
         selectedBackgroundColor: null,
+        iconShape: const CircleBorder(),
         unselectedBackgroundColor: null,
       );
 }
