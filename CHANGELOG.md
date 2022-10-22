@@ -47,3 +47,7 @@
 
 ## 1.0.3
 * Background color of selected and not selected ``SideNavigationBarItem``
+
+## 1.0.4
+* Background color of non-selected ``SideNavigationBarItem`` not working
+* Added shape for an icon of a ``SideNavigationBarItem`` when not selected
