@@ -1,4 +1,5 @@
 # Flutter Side Navigation
+[![Flutter Tests](https://github.com/jksevend/side_navigation/actions/workflows/flutter_test.yml/badge.svg)](https://github.com/jksevend/side_navigation/actions/workflows/flutter_test.yml)
 
 This package provides support to navigate on your app. It was inspired from both the ```BottomNavigationBar``` and ```Drawer```. You can think of it as a drawer which is always open. Kind of like a CEO dashboard web application.
 
