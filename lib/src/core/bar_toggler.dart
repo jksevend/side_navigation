@@ -15,12 +15,15 @@ class SideBarTogglerWidget extends StatefulWidget {
   /// Style customizations
   final SideNavigationBarTogglerTheme togglerTheme;
 
+  final bool visible;
+
   const SideBarTogglerWidget({
     Key? key,
     required this.togglerData,
     required this.expanded,
     required this.onToggle,
     required this.togglerTheme,
+    required this.visible,
   }) : super(key: key);
 
   @override
@@ -30,16 +33,19 @@ class SideBarTogglerWidget extends StatefulWidget {
 class _SideBarTogglerWidgetState extends State<SideBarTogglerWidget> {
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      icon: Icon(
-        widget.expanded
-            ? widget.togglerData.shrinkIcon
-            : widget.togglerData.expandIcon,
-        color: widget.expanded
-            ? widget.togglerTheme.shrinkIconColor
-            : widget.togglerTheme.expandIconColor,
+    return Visibility(
+      visible: widget.visible,
+      child: IconButton(
+        icon: Icon(
+          widget.expanded
+              ? widget.togglerData.shrinkIcon
+              : widget.togglerData.expandIcon,
+          color: widget.expanded
+              ? widget.togglerTheme.shrinkIconColor
+              : widget.togglerTheme.expandIconColor,
+        ),
+        onPressed: widget.onToggle,
       ),
-      onPressed: widget.onToggle,
     );
   }
 }
