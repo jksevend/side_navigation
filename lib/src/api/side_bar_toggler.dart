@@ -13,9 +13,12 @@ class SideBarToggler {
   /// Optional callback to perform actions **AFTER** [SideNavigationBar]'s state changes.
   final VoidCallback? onToggle;
 
+  final bool visible;
+
   /// Toggler data
   const SideBarToggler(
       {this.expandIcon = Icons.arrow_right,
       this.shrinkIcon = Icons.arrow_left,
-      this.onToggle});
+      this.onToggle,
+      this.visible = true});
 }

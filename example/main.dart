@@ -34,21 +34,30 @@ class _MainViewState extends State<MainView> {
 
   /// The currently selected index of the bar
   int selectedIndex = 0;
+  final SideBarToggler barToggler = SideBarToggler(
+    visible: false,
+    expandIcon: Icons.menu,
+    shrinkIcon: Icons.close,
+    onToggle: () => print('toggled'),
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /// You can use an AppBar if you want to
-      //appBar: AppBar(
-      //  title: const Text('App'),
-      //),
-
+      appBar: AppBar(
+        title: const Text('App'),
+        leading: IconButton(
+          icon: const Icon(Icons.menu),
+          onPressed: () => toggle(barToggler),
+        ),
+      ),
       // The row is needed to display the current view
       body: Row(
         children: [
           /// Pretty similar to the BottomNavigationBar!
           SideNavigationBar(
             selectedIndex: selectedIndex,
+            toggler: barToggler,
             items: const [
               SideNavigationBarItem(
                 icon: Icons.dashboard,

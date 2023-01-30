@@ -75,16 +75,6 @@ class SideNavigationBar extends StatefulWidget {
 }
 
 class _SideNavigationBarState extends State<SideNavigationBar> {
-  /// TODO: Maybe find some way using layout out builder here
-  final double _minWidth = 50;
-  final double _maxWidth = 230;
-
-  /// The width of the bar used for animation
-  late double _width;
-
-  /// Whether this bar is in its expanded state
-  late bool _expanded;
-
   /// Chooses [SideNavigationBarTheme.standard] or [widget._theme]
   late SideNavigationBarTheme _theme;
 
@@ -129,21 +119,6 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
         ),
       ),
     );
-  }
-
-  /// Toggles this widget. Determine width here for now.
-  /// Optionally calls a [SideBarToggler.onToggle] call to react to [_expanded] changes
-  void _toggle() {
-    setState(() {
-      if (_expanded) {
-        _width = _minWidth;
-      } else {
-        _width = _maxWidth;
-      }
-      _expanded = !_expanded;
-    });
-    // Check if a custom onToggle is provided and call after (or before?) internal logic
-    widget.toggler?.onToggle?.call();
   }
 
   /// Evaluate if [_theme] should be [SideNavigationBarTheme.standard] or provided
@@ -237,11 +212,13 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
 
     // Toggler is provided, use it
     if (widget.toggler != null) {
+      const SideBarToggler barToggler = SideBarToggler();
       return SideBarTogglerWidget(
         togglerTheme: _theme.togglerTheme,
         togglerData: widget.toggler!,
         expanded: _expanded,
-        onToggle: () => _toggle(),
+        onToggle: () => setState(() => toggle(barToggler)),
+        visible: widget.toggler!.visible,
       );
     } else {
       // Create the default toggler and use it
@@ -250,7 +227,8 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
         togglerTheme: _theme.togglerTheme,
         togglerData: barToggler,
         expanded: _expanded,
-        onToggle: () => _toggle(),
+        onToggle: () => setState(() => toggle(barToggler)),
+        visible: widget.toggler!.visible,
       );
     }
   }
@@ -317,3 +295,26 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
     );
   }
 }
+
+/// TODO: Maybe find some way using layout out builder here
+  const double _minWidth = 50;
+  const double _maxWidth = 230;
+
+  /// The width of the bar used for animation
+  late double _width;
+
+  /// Whether this bar is in its expanded state
+  late bool _expanded;
+
+/// Toggles this widget. Determine width here for now.
+  /// Optionally calls a [SideBarToggler.onToggle] call to react to [_expanded] changes
+  void toggle(SideBarToggler toggler) {
+      if (_expanded) {
+        _width = _minWidth;
+      } else {
+        _width = _maxWidth;
+      }
+      _expanded = !_expanded;
+    // Check if a custom onToggle is provided and call after (or before?) internal logic
+    toggler.onToggle?.call();
+  }
