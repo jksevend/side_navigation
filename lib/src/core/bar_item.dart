@@ -55,20 +55,37 @@ class _SideNavigationBarItemWidgetState
       waitDuration: const Duration(seconds: 1),
       message: widget.itemData.label,
       child: widget.expanded
-          ? ListTile(
-              tileColor: _evaluateBackgroundColor(isSelected),
-              leading: Icon(
-                widget.itemData.icon,
-                color: currentColor,
-                size: widget.itemTheme.iconSize,
-              ),
-              title: Text(
-                widget.itemData.label,
-                style: _evaluateTextStyle(currentColor),
-              ),
+          ? InkWell(
+              // borderRadius: BorderRadius.circular(10),
               onTap: () {
                 widget.onTap(widget.index);
               },
+              child: Material(
+                color: Colors.transparent,
+                child: Ink(
+                  decoration: ShapeDecoration(
+                    color: _evaluateBackgroundColor(isSelected),
+                    shape: widget.itemTheme.iconShape,
+                  ),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        padding: const EdgeInsets.all(16),
+                        icon: Icon(
+                          widget.itemData.icon,
+                          color: currentColor,
+                          size: widget.itemTheme.iconSize,
+                        ),
+                        onPressed: () {
+                          widget.onTap(widget.index);
+                        },
+                      ),
+                      Text(widget.itemData.label,
+                          style: _evaluateTextStyle(currentColor)),
+                    ],
+                  ),
+                ),
+              ),
             )
           : Material(
               color: Colors.transparent,
